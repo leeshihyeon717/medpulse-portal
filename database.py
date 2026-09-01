@@ -1,15 +1,179 @@
 """
 Database schema, connection helper, and seeding for MedPulse Portal
+
+By default this connects to a local SQLite file (DB_PATH below), which is fine for local
+development but does NOT survive a redeploy/restart on hosts like Render with no persistent
+disk. Setting TURSO_DATABASE_URL + TURSO_AUTH_TOKEN (e.g. in Render's environment variable
+settings) switches every query to a remote Turso database instead, over Turso's plain HTTP
+API (https://docs.turso.tech/sdk/http/quickstart) - using only the Python standard library's
+urllib, so no extra pip dependency is needed. The Remote* classes below imitate just the
+sqlite3.Connection/Cursor/Row surface this codebase actually uses, so database.py and
+server.py don't need to know or care which mode they're in.
 """
 import sqlite3
 import os
 import json
 import time
+import base64
+import urllib.request
+import urllib.error
 from auth import hash_password
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "medpulse.db")
 
+TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL", "").strip()
+TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "").strip()
+USE_REMOTE_DB = bool(TURSO_DATABASE_URL and TURSO_AUTH_TOKEN)
+
+
+def _turso_http_base_url():
+    url = TURSO_DATABASE_URL
+    if url.startswith("libsql://"):
+        url = "https://" + url[len("libsql://"):]
+    elif url.startswith("turso://"):
+        url = "https://" + url[len("turso://"):]
+    return url.rstrip("/")
+
+
+def _encode_arg(value):
+    """Python value -> Hrana typed argument, per the libSQL HTTP API's Value format."""
+    if value is None:
+        return {"type": "null"}
+    if isinstance(value, bool):
+        return {"type": "integer", "value": str(int(value))}
+    if isinstance(value, int):
+        return {"type": "integer", "value": str(value)}
+    if isinstance(value, float):
+        return {"type": "float", "value": value}
+    if isinstance(value, bytes):
+        return {"type": "blob", "base64": base64.b64encode(value).decode("ascii")}
+    return {"type": "text", "value": str(value)}
+
+
+def _decode_value(value):
+    """Hrana typed cell value -> native Python value."""
+    vtype = value.get("type")
+    if vtype == "integer":
+        return int(value["value"])
+    if vtype == "float":
+        return float(value["value"])
+    if vtype == "text":
+        return value["value"]
+    if vtype == "blob":
+        return base64.b64decode(value["base64"])
+    return None  # "null" (and any unrecognized future type) both default to None
+
+
+class RemoteIntegrityError(sqlite3.IntegrityError):
+    """Subclassing sqlite3.IntegrityError so server.py's existing
+    `except sqlite3.IntegrityError` blocks catch this without any changes."""
+    pass
+
+
+class RemoteRow:
+    """Mimics sqlite3.Row: supports row['col'], row[0], iteration, and dict(row)."""
+
+    def __init__(self, cols, values):
+        self._cols = cols
+        self._values = values
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return self._values[key]
+        return self._values[self._cols.index(key)]
+
+    def __iter__(self):
+        return iter(self._values)
+
+    def __len__(self):
+        return len(self._values)
+
+    def keys(self):
+        return list(self._cols)
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except (ValueError, IndexError):
+            return default
+
+
+class RemoteCursor:
+    def __init__(self):
+        self._rows = []
+        self._idx = 0
+        self.lastrowid = None
+
+    def execute(self, sql, params=()):
+        args = [_encode_arg(p) for p in (params or ())]
+        payload = {"requests": [
+            {"type": "execute", "stmt": {"sql": sql, "args": args}},
+            {"type": "close"},
+        ]}
+        req = urllib.request.Request(
+            f"{_turso_http_base_url()}/v2/pipeline",
+            data=json.dumps(payload).encode("utf-8"),
+            method="POST",
+            headers={
+                "Authorization": f"Bearer {TURSO_AUTH_TOKEN}",
+                "Content-Type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"Turso HTTP API error {e.code}: {e.read().decode('utf-8', 'ignore')}")
+
+        first = data["results"][0]
+        if first["type"] == "error":
+            message = first["error"].get("message", "Unknown Turso error")
+            if "UNIQUE constraint failed" in message:
+                raise RemoteIntegrityError(message)
+            raise RuntimeError(f"Turso SQL error: {message}")
+
+        result = first["response"]["result"]
+        cols = [c.get("name") for c in result.get("cols", [])]
+        self._rows = [RemoteRow(cols, [_decode_value(v) for v in row]) for row in result.get("rows", [])]
+        self._idx = 0
+        last_id = result.get("last_insert_rowid")
+        self.lastrowid = int(last_id) if last_id is not None else None
+        return self
+
+    def executemany(self, sql, seq_of_params):
+        for params in seq_of_params:
+            self.execute(sql, params)
+
+    def fetchone(self):
+        if self._idx >= len(self._rows):
+            return None
+        row = self._rows[self._idx]
+        self._idx += 1
+        return row
+
+    def fetchall(self):
+        rows = self._rows[self._idx:]
+        self._idx = len(self._rows)
+        return rows
+
+
+class RemoteConnection:
+    """Each statement commits itself immediately over HTTP, so commit()/close() are no-ops -
+    there's no persistent connection or pending transaction to manage."""
+
+    def cursor(self):
+        return RemoteCursor()
+
+    def commit(self):
+        pass
+
+    def close(self):
+        pass
+
+
 def get_db():
+    if USE_REMOTE_DB:
+        return RemoteConnection()
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn

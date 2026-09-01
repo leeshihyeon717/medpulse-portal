@@ -93,13 +93,32 @@ that - no code changes needed, since `server.py` already binds to all interfaces
 5. Deploy. Render gives you a permanent `https://<your-service-name>.onrender.com` URL.
 
 **Free-tier tradeoffs to know:**
-- The disk is not persistent - every restart/redeploy re-seeds `medpulse.db` back to the 12
-  default accounts with no articles, medications, comments, or reviews. Fine for a demo; not a
-  place to store real data long-term.
+- Without the Turso setup below, the disk is not persistent - every restart/redeploy re-seeds
+  `medpulse.db` back to the 12 default accounts with no articles, medications, comments, or
+  reviews.
 - The free service spins down after ~15 minutes of no traffic and takes 30-60 seconds to wake
-  back up on the next visit (a cold start), rather than responding instantly.
-- If you outgrow either limitation, Render's paid tier adds a persistent disk and removes the
-  spin-down - ask Claude to switch the config over when you're ready.
+  back up on the next visit (a cold start), rather than responding instantly. This is unrelated
+  to the database and happens either way.
+
+### Keeping the Database Across Restarts (Turso)
+
+By default the app stores everything in a local SQLite file, which is wiped on every Render
+restart/redeploy as noted above. Setting two environment variables switches it to a free,
+permanent, hosted database instead - `database.py` talks to it over Turso's HTTP API using only
+the Python standard library, so no dependency install or code change is needed on your end.
+
+1. Sign up at [turso.tech](https://turso.tech) (free, no card required) and create a database
+   from their web dashboard.
+2. From the database's page, get its **URL** (starts with `libsql://...`) and generate an
+   **auth token**.
+3. In your Render service → **Environment** tab, add two variables:
+   - `TURSO_DATABASE_URL` = the URL from step 2
+   - `TURSO_AUTH_TOKEN` = the token from step 2
+4. Save - Render redeploys automatically. From then on, every restart/redeploy keeps your data
+   (accounts, articles, medications, comments, and reviews) instead of resetting it.
+
+Leaving these two variables unset keeps the app on the local SQLite file exactly as before - so
+this is entirely optional and safe to skip or add later.
 
 ---
 
