@@ -73,6 +73,36 @@ http://localhost:8000
 
 ---
 
+## ☁️ Deploying So the Site Runs Without Your Mac
+
+Running `server.py` locally only serves the site while your Mac is on. To make it reachable
+24/7, deploy it to Render (this repo already includes `render.yaml` and `requirements.txt` for
+that - no code changes needed, since `server.py` already binds to all interfaces and reads the
+`PORT` environment variable Render provides):
+
+1. Push this repo to GitHub (create an empty repo at github.com/new, then from this folder):
+   ```bash
+   git remote add origin <your-new-repo-url>
+   git push -u origin main
+   ```
+2. Sign up at [render.com](https://render.com) (free, email only, no card required).
+3. **New +** → **Web Service** → connect the GitHub repo you just pushed.
+4. Render should auto-detect `render.yaml`. If asked to confirm settings manually: Environment
+   = Python, Build Command = `pip install -r requirements.txt`, Start Command =
+   `python3 server.py`, Plan = Free.
+5. Deploy. Render gives you a permanent `https://<your-service-name>.onrender.com` URL.
+
+**Free-tier tradeoffs to know:**
+- The disk is not persistent - every restart/redeploy re-seeds `medpulse.db` back to the 12
+  default accounts with no articles, medications, comments, or reviews. Fine for a demo; not a
+  place to store real data long-term.
+- The free service spins down after ~15 minutes of no traffic and takes 30-60 seconds to wake
+  back up on the next visit (a cold start), rather than responding instantly.
+- If you outgrow either limitation, Render's paid tier adds a persistent disk and removes the
+  spin-down - ask Claude to switch the config over when you're ready.
+
+---
+
 ## 🏗️ Architecture & Technology Stack
 - **Backend**: Python 3 standard library (`http.server`, `sqlite3`, `hashlib`, `secrets`) — zero third-party dependencies required.
 - **Security**: PBKDF2-HMAC-SHA256 password hashing with salt + bearer session tokens.
