@@ -1,4 +1,4 @@
-# 🩺 MedPulse | Medical Knowledge Hub & Clinical Pharmacy Portal
+# 🩺 PANHCE | Pennsylvania Non-Physician Health Career Exploration
 
 An evidence-based medical publication and clinical pharmacy web platform designed with strict **Role-Based Access Control (RBAC)** to ensure all medical literature is curated exclusively by approved clinicians, while enabling patients and visitors to read articles, leave comments, and rate the platform.
 
