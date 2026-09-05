@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MedPulse | Medical Knowledge Hub & Clinical Pharmacy</title>
+  <title>PANHCE | Pharmacy & Nursing Healthcare Career Education</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -65,49 +65,61 @@
       <div class="flex justify-between items-center h-20">
         
         <!-- Logo -->
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navigate('articles')">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navigate('home')">
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 ring-4 ring-blue-50">
             <i data-lucide="activity" class="w-6 h-6 stroke-[2.5]"></i>
           </div>
           <div>
             <div class="flex items-center space-x-1.5">
-              <span class="font-extrabold text-2xl tracking-tight text-slate-900">Med<span class="text-blue-600">Pulse</span></span>
-              <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Health & Rx</span>
+              <span class="font-extrabold text-2xl tracking-tight text-slate-900">PA<span class="text-blue-600">NHCE</span></span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Pharmacy & Nursing</span>
             </div>
-            <p class="text-[11px] text-slate-500 font-medium">Evidence-Based Clinical Hub</p>
+            <p class="text-[11px] text-slate-500 font-medium">Healthcare Career Education</p>
           </div>
         </div>
 
         <!-- Navigation Links -->
-        <nav class="hidden md:flex items-center space-x-1">
-          <button onclick="app.navigate('articles')" id="nav-articles" class="nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-blue-700 bg-blue-50/80">
-            <i data-lucide="book-open-check" class="w-4 h-4"></i>
-            <span>Medical Articles</span>
+        <nav class="hidden xl:flex items-center">
+          <button onclick="app.navigate('home')" id="nav-home" class="nav-link active px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-blue-700 bg-blue-50/80">
+            <i data-lucide="home" class="w-4 h-4"></i>
+            <span>Home</span>
           </button>
-          <button onclick="app.navigate('pharmacy')" id="nav-pharmacy" class="nav-link px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <button onclick="app.navigate('pharmacy')" id="nav-pharmacy" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
             <i data-lucide="pill" class="w-4 h-4"></i>
-            <span>Pharmacy & Drugs</span>
+            <span>Pharmacy</span>
           </button>
-          <button onclick="app.navigate('ratings')" id="nav-ratings" class="nav-link px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <button onclick="app.navigate('nursing')" id="nav-nursing" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            <i data-lucide="stethoscope" class="w-4 h-4"></i>
+            <span>Nursing</span>
+          </button>
+          <button onclick="app.navigate('articles')" id="nav-articles" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            <i data-lucide="book-open-check" class="w-4 h-4"></i>
+            <span>Healthcare Basics</span>
+          </button>
+          <button onclick="app.navigate('quiz')" id="nav-quiz" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+            <span>Quiz / Case</span>
+          </button>
+          <button onclick="app.navigate('ratings')" id="nav-ratings" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
             <i data-lucide="star" class="w-4 h-4"></i>
-            <span>Site Ratings</span>
+            <span>Ratings</span>
             <span id="nav-rating-badge" class="ml-1 px-1.5 py-0.5 text-xs font-bold rounded-full bg-amber-100 text-amber-800">4.9 ★</span>
           </button>
-          <button onclick="app.navigate('about')" id="nav-about" class="nav-link px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <button onclick="app.navigate('about')" id="nav-about" class="nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
             <i data-lucide="shield-check" class="w-4 h-4"></i>
-            <span>Editorial Standards</span>
+            <span>About</span>
           </button>
         </nav>
 
         <!-- Right Side Actions -->
         <div class="flex items-center space-x-2.5">
-          <button onclick="app.openSiteRatingModal()" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 transition shadow-sm">
+          <button onclick="app.openSiteRatingModal()" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 transition shadow-sm whitespace-nowrap">
             <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
             <span>Rate This Site</span>
           </button>
 
           <!-- Mobile Menu Toggle (phones/small tablets only - the full nav below is desktop-only) -->
-          <button onclick="app.toggleMobileMenu()" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" aria-label="Open menu">
+          <button onclick="app.toggleMobileMenu()" class="xl:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" aria-label="Open menu">
             <i data-lucide="menu" class="w-5 h-5"></i>
           </button>
 
@@ -129,7 +141,7 @@
 
           <!-- Auth Button -->
           <div id="auth-btn-wrapper">
-            <button onclick="app.openLoginModal()" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition">
+            <button onclick="app.openLoginModal()" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition whitespace-nowrap">
               <i data-lucide="lock" class="w-4 h-4 text-slate-500"></i>
               <span>Doctor / Editor Login</span>
             </button>
@@ -141,15 +153,27 @@
   </header>
 
   <!-- Mobile Navigation Panel (phones/small tablets - the desktop nav above is hidden below md) -->
-  <div id="mobile-nav-panel" class="hidden md:hidden bg-white border-b border-slate-200 shadow-sm sticky top-20 z-30">
+  <div id="mobile-nav-panel" class="hidden xl:hidden bg-white border-b border-slate-200 shadow-sm sticky top-20 z-30">
     <div class="px-4 py-3 space-y-1">
-      <button onclick="app.navigate('articles'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
-        <i data-lucide="book-open-check" class="w-4 h-4"></i>
-        <span>Medical Articles</span>
+      <button onclick="app.navigate('home'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
+        <i data-lucide="home" class="w-4 h-4"></i>
+        <span>Home</span>
       </button>
       <button onclick="app.navigate('pharmacy'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
         <i data-lucide="pill" class="w-4 h-4"></i>
-        <span>Pharmacy & Drugs</span>
+        <span>Pharmacy</span>
+      </button>
+      <button onclick="app.navigate('nursing'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
+        <i data-lucide="stethoscope" class="w-4 h-4"></i>
+        <span>Nursing</span>
+      </button>
+      <button onclick="app.navigate('articles'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
+        <i data-lucide="book-open-check" class="w-4 h-4"></i>
+        <span>Healthcare Basics</span>
+      </button>
+      <button onclick="app.navigate('quiz'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
+        <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+        <span>Quiz / Case</span>
       </button>
       <button onclick="app.navigate('ratings'); app.closeMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 flex items-center space-x-2.5">
         <i data-lucide="star" class="w-4 h-4"></i>
@@ -176,13 +200,13 @@
         <div class="max-w-2xl">
           <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-[11px] font-bold uppercase tracking-widest mb-5">
             <i data-lucide="stethoscope" class="w-3.5 h-3.5"></i>
-            <span>Peer-Reviewed Clinical Platform</span>
+            <span>Pharmacy & Nursing Career Education</span>
           </div>
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
-            Trustworthy Medical Insights & <span class="text-blue-400">Clinical Pharmacy</span>
+            Your Path Into <span class="text-blue-400">Pharmacy & Nursing</span>
           </h1>
           <p class="mt-5 text-slate-300 text-base sm:text-lg leading-relaxed max-w-lg">
-            Written strictly by approved healthcare professionals. Read clinical guides, look up medications, leave comments, and rate our platform.
+            Written strictly by approved healthcare professionals. Explore Pharmacy, Nursing, and Healthcare Basics, look up medications, leave comments, and rate our platform.
           </p>
 
           <!-- Search & Filter Bar in Hero -->
@@ -251,37 +275,139 @@
   <!-- Main Content Body -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-    <!-- SECTION 1: MEDICAL ARTICLES -->
-    <section id="section-articles" class="space-y-8">
-      
+    <!-- SECTION 0: HOME -->
+    <section id="section-home" class="space-y-10">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="group cursor-pointer bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 hover:border-blue-300 hover:shadow-md transition" onclick="app.navigate('pharmacy')">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="pill" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-extrabold text-lg text-slate-900 group-hover:text-blue-700 transition">Pharmacy</h3>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Medication guides, dosing, and the path to becoming a pharmacist.</p>
+          <div class="mt-4 text-xs font-bold text-blue-700 flex items-center space-x-1">
+            <span>Explore Pharmacy</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <div class="group cursor-pointer bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 hover:border-blue-300 hover:shadow-md transition" onclick="app.navigate('nursing')">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="stethoscope" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-extrabold text-lg text-slate-900 group-hover:text-blue-700 transition">Nursing</h3>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Patient care, clinical skills, and the path to becoming a nurse.</p>
+          <div class="mt-4 text-xs font-bold text-blue-700 flex items-center space-x-1">
+            <span>Explore Nursing</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+
+        <div class="group cursor-pointer bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 hover:border-blue-300 hover:shadow-md transition" onclick="app.navigate('articles')">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="book-open-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-extrabold text-lg text-slate-900 group-hover:text-blue-700 transition">Healthcare Basics</h3>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Public health, mental health, chronic disease, and more - for any healthcare path.</p>
+          <div class="mt-4 text-xs font-bold text-blue-700 flex items-center space-x-1">
+            <span>Explore Healthcare Basics</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8">
+        <div class="text-[11px] font-bold uppercase tracking-widest text-blue-700 mb-2">Test Yourself</div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-900">Quiz & Case Studies</h3>
+            <p class="text-xs text-slate-500 mt-1">Interactive quizzes and real-world case studies. Coming soon.</p>
+          </div>
+          <button onclick="app.navigate('quiz')" class="px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center space-x-2 shrink-0">
+            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+            <span>Preview Quiz / Case</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="app.navigate('about')" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+          <i data-lucide="award" class="w-4 h-4 text-blue-600"></i>
+          <span>Meet Our Accredited Editorial Board</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- SECTION 1: HEALTHCARE BASICS -->
+    <section id="section-articles" class="hidden space-y-8">
+
       <!-- Section Header & Filter Pills -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <div class="text-[11px] font-bold uppercase tracking-widest text-blue-700 mb-1.5">Evidence-Based Library</div>
           <h2 class="text-2xl font-extrabold text-slate-900 flex items-center space-x-2">
-            <span>Clinical Medical Library</span>
+            <span>Healthcare Basics</span>
             <span id="article-count-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">5 Articles</span>
           </h2>
-          <p class="text-sm text-slate-500 mt-1">Peer-reviewed clinical summaries, disease management protocols, and health guides.</p>
+          <p class="text-sm text-slate-500 mt-1">Foundational health topics beyond pharmacy and nursing - for anyone exploring the healthcare field.</p>
         </div>
 
-        <!-- Specialty Category Filters -->
+        <!-- Topic Category Filters -->
         <div class="flex items-center flex-wrap gap-2" id="article-category-filters">
-          <button onclick="app.filterArticles('All')" class="art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-700 text-white shadow-sm transition">All Specialties</button>
-          <button onclick="app.filterArticles('Cardiovascular')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Cardiovascular</button>
-          <button onclick="app.filterArticles('Endocrinology')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Endocrinology</button>
-          <button onclick="app.filterArticles('Pediatrics')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Pediatrics</button>
-          <button onclick="app.filterArticles('Immunology')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Immunology</button>
-          <button onclick="app.filterArticles('Pharmacology')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Pharmacology</button>
+          <button onclick="app.filterArticles('All')" class="art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-700 text-white shadow-sm transition">All Topics</button>
+          <button onclick="app.filterArticles('Public Health')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Public Health</button>
+          <button onclick="app.filterArticles('Mental Health')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Mental Health</button>
+          <button onclick="app.filterArticles('Chronic Diseases')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Chronic Diseases</button>
+          <button onclick="app.filterArticles('Patient Safety')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Patient Safety</button>
+          <button onclick="app.filterArticles('Aging & Elderly Care')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Aging & Elderly Care</button>
+          <button onclick="app.filterArticles('Health Education & Prevention')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Health Education & Prevention</button>
+          <button onclick="app.filterArticles('Global Health')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Global Health</button>
         </div>
       </div>
 
       <!-- Articles Grid -->
       <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Rendered dynamically by app.js -->
-        <div class="col-span-full py-12 text-center text-slate-400">Loading medical articles...</div>
+        <div class="col-span-full py-12 text-center text-slate-400">Loading Healthcare Basics articles...</div>
       </div>
 
+    </section>
+
+    <!-- SECTION: NURSING -->
+    <section id="section-nursing" class="hidden space-y-8">
+
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+        <div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-blue-700 mb-1.5">Nursing Pathway</div>
+          <h2 class="text-2xl font-extrabold text-slate-900 flex items-center space-x-2">
+            <span>Nursing</span>
+            <span id="nursing-count-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">0 Articles</span>
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">Patient care, clinical skills, and everything on the path to becoming a nurse.</p>
+        </div>
+      </div>
+
+      <div id="nursing-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by app.js -->
+        <div class="col-span-full py-12 text-center text-slate-400">Loading nursing articles...</div>
+      </div>
+
+    </section>
+
+    <!-- SECTION: QUIZ / CASE (placeholder) -->
+    <section id="section-quiz" class="hidden">
+      <div class="py-20 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
+        <div class="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-4">
+          <i data-lucide="clipboard-check" class="w-8 h-8"></i>
+        </div>
+        <div class="text-[11px] font-bold uppercase tracking-widest text-blue-700 mb-2">Coming Soon</div>
+        <h2 class="text-2xl font-extrabold text-slate-900">Quiz & Case Studies</h2>
+        <p class="text-sm text-slate-500 mt-2 max-w-md mx-auto">
+          Interactive quizzes and real-world case studies to test your knowledge across Pharmacy, Nursing, and Healthcare Basics are on the way.
+        </p>
+      </div>
     </section>
 
     <!-- SECTION 2: PHARMACY & DRUG GUIDE -->
@@ -293,7 +419,7 @@
           <div class="max-w-xl">
             <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-400/20 text-blue-300 text-xs font-bold mb-3 border border-blue-400/30">
               <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
-              <span>MedPulse Clinical Pharmacy Directory</span>
+              <span>PANHCE Clinical Pharmacy Directory</span>
             </div>
             <h2 class="text-3xl font-extrabold tracking-tight">Medication Catalog & Patient Safety</h2>
             <p class="text-slate-300 text-sm mt-2 leading-relaxed">
@@ -454,10 +580,10 @@
           <span>Governance & Integrity</span>
         </div>
 
-        <h2 class="text-3xl font-black text-slate-900">MedPulse Editorial Policy & Safety Guidelines</h2>
+        <h2 class="text-3xl font-black text-slate-900">PANHCE Editorial Policy & Safety Guidelines</h2>
         
         <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
-          MedPulse was established with a strict mandate: <strong>medical information must be authored exclusively by accredited, verified clinicians</strong>. To prevent dangerous misinformation, our platform implements strict Role-Based Access Control (RBAC).
+          PANHCE was established with a strict mandate: <strong>medical information must be authored exclusively by accredited, verified clinicians</strong>. To prevent dangerous misinformation, our platform implements strict Role-Based Access Control (RBAC).
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
@@ -487,7 +613,7 @@
         <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed flex items-start space-x-3">
           <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
           <div>
-            <strong>Medical Disclaimer:</strong> The content provided on MedPulse is for educational and informational purposes only. It does not constitute individual medical diagnosis or substitute professional clinical judgment. Always consult your qualified physician regarding any medical condition.
+            <strong>Medical Disclaimer:</strong> The content provided on PANHCE is for educational and informational purposes only. It does not constitute individual medical diagnosis or substitute professional clinical judgment. Always consult your qualified physician regarding any medical condition.
           </div>
         </div>
 
@@ -499,7 +625,7 @@
                 <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
                 <span>Accredited Clinical Editorial Board</span>
               </h3>
-              <p class="text-xs text-slate-500 mt-0.5">Verified clinicians who review, author, and maintain clinical literature on MedPulse.</p>
+              <p class="text-xs text-slate-500 mt-0.5">Verified clinicians who review, author, and maintain clinical literature on PANHCE.</p>
             </div>
             <div id="admin-quick-assign-wrapper" class="hidden">
               <button onclick="app.openAssignUserModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
@@ -528,14 +654,16 @@
           <i data-lucide="activity" class="w-4 h-4"></i>
         </div>
         <div>
-          <span class="font-bold text-slate-900 text-sm">MedPulse Platform</span>
-          <p class="text-[11px] text-slate-400">© 2026 MedPulse Health & Clinical Pharmacy. All rights reserved.</p>
+          <span class="font-bold text-slate-900 text-sm">PANHCE Platform</span>
+          <p class="text-[11px] text-slate-400">© 2026 PANHCE Pharmacy & Nursing Healthcare Career Education. All rights reserved.</p>
         </div>
       </div>
 
-      <div class="flex items-center space-x-6">
-        <button onclick="app.navigate('articles')" class="hover:text-slate-900">Articles</button>
+      <div class="flex items-center flex-wrap justify-center gap-x-6 gap-y-2">
         <button onclick="app.navigate('pharmacy')" class="hover:text-slate-900">Pharmacy</button>
+        <button onclick="app.navigate('nursing')" class="hover:text-slate-900">Nursing</button>
+        <button onclick="app.navigate('articles')" class="hover:text-slate-900">Healthcare Basics</button>
+        <button onclick="app.navigate('quiz')" class="hover:text-slate-900">Quiz / Case</button>
         <button onclick="app.navigate('ratings')" class="hover:text-slate-900">Site Ratings</button>
         <button onclick="app.navigate('about')" class="hover:text-slate-900">Editorial Policy</button>
         <button onclick="app.openLoginModal()" class="text-blue-700 font-semibold hover:underline">Doctor Portal</button>
@@ -746,7 +874,7 @@
             <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-500 text-amber-500"></i>
             <span>Platform Review</span>
           </div>
-          <h3 id="site-rating-headline" class="text-2xl font-extrabold text-slate-900 mt-2">Rate MedPulse Portal</h3>
+          <h3 id="site-rating-headline" class="text-2xl font-extrabold text-slate-900 mt-2">Rate PANHCE Portal</h3>
           <p class="text-xs text-slate-500 mt-0.5">Help us maintain peak clinical quality and usability.</p>
         </div>
         <button onclick="app.closeSiteRatingModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
@@ -786,12 +914,12 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Your Review & Comments</label>
-          <textarea id="rating-feedback" rows="3" placeholder="What did you like most about MedPulse? Any suggestions for our medical editorial team?" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
+          <textarea id="rating-feedback" rows="3" placeholder="What did you like most about PANHCE? Any suggestions for our medical editorial team?" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div class="flex items-center space-x-2">
           <input type="checkbox" id="rating-recommend" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" />
-          <label for="rating-recommend" class="text-xs text-slate-700 font-medium">I would recommend MedPulse to colleagues or patients.</label>
+          <label for="rating-recommend" class="text-xs text-slate-700 font-medium">I would recommend PANHCE to colleagues or patients.</label>
         </div>
 
       </div>
@@ -884,13 +1012,18 @@
           <div>
             <label class="block font-bold text-slate-700 mb-1">Specialty Category *</label>
             <select id="edit-article-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="Cardiovascular">Cardiovascular</option>
-              <option value="Endocrinology">Endocrinology</option>
-              <option value="Pediatrics">Pediatrics</option>
-              <option value="Immunology">Immunology</option>
-              <option value="Pharmacology">Pharmacology</option>
-              <option value="Neurology">Neurology</option>
-              <option value="General Health">General Health</option>
+              <optgroup label="Nursing">
+                <option value="Nursing">Nursing</option>
+              </optgroup>
+              <optgroup label="Healthcare Basics">
+                <option value="Public Health">Public Health</option>
+                <option value="Mental Health">Mental Health</option>
+                <option value="Chronic Diseases">Chronic Diseases</option>
+                <option value="Patient Safety">Patient Safety</option>
+                <option value="Aging & Elderly Care">Aging & Elderly Care</option>
+                <option value="Health Education & Prevention">Health Education & Prevention</option>
+                <option value="Global Health">Global Health</option>
+              </optgroup>
             </select>
           </div>
 
@@ -924,7 +1057,7 @@
 
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end space-x-3">
         <button onclick="app.closeArticleEditorModal()" class="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">Cancel</button>
-        <button onclick="app.saveArticle()" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Publish to MedPulse</button>
+        <button onclick="app.saveArticle()" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Publish to PANHCE</button>
       </div>
 
     </div>
@@ -1230,6 +1363,6 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- App JavaScript Engine -->
-  <script src="/app.js?v=3"></script>
+  <script src="/app.js?v=4"></script>
 </body>
 </html>

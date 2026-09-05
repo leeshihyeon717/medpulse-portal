@@ -9,9 +9,10 @@ class MedPulseApp {
     this.token = localStorage.getItem('medpulse_token') || null;
     this.clientId = this.getOrCreateClientId();
     this.currentUser = null;
-    this.activeTab = 'articles';
-    
+    this.activeTab = 'home';
+
     this.articles = [];
+    this.nursingArticles = [];
     this.pharmacyItems = [];
     this.ratingsData = { ratings: [], summary: {} };
     this.users = [];
@@ -48,16 +49,17 @@ class MedPulseApp {
     await this.checkAuth();
     await this.loadStats();
     await this.loadArticles();
+    await this.loadNursingArticles();
     await this.loadPharmacy();
     await this.loadRatings();
     await this.loadUsers();
 
     // Check hash for direct navigation
     const hash = window.location.hash.replace('#', '');
-    if (['articles', 'pharmacy', 'ratings', 'about'].includes(hash)) {
+    if (['home', 'pharmacy', 'nursing', 'articles', 'quiz', 'ratings', 'about'].includes(hash)) {
       this.navigate(hash);
     } else {
-      this.navigate('articles');
+      this.navigate('home');
     }
 
     if (window.lucide) {
@@ -212,6 +214,7 @@ class MedPulseApp {
 
     if (window.lucide) window.lucide.createIcons();
     this.renderArticles();
+    this.renderNursingArticles();
     this.renderPharmacy();
     this.renderEditorialBoard();
   }
@@ -310,12 +313,12 @@ class MedPulseApp {
     window.location.hash = tab;
 
     // Hide all sections
-    ['articles', 'pharmacy', 'ratings', 'about'].forEach(t => {
+    ['home', 'pharmacy', 'nursing', 'articles', 'quiz', 'ratings', 'about'].forEach(t => {
       const sec = document.getElementById(`section-${t}`);
       const link = document.getElementById(`nav-${t}`);
       if (sec) sec.classList.add('hidden');
       if (link) {
-        link.className = 'nav-link px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100';
+        link.className = 'nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100';
       }
     });
 
@@ -324,7 +327,7 @@ class MedPulseApp {
     const activeLink = document.getElementById(`nav-${tab}`);
     if (activeSec) activeSec.classList.remove('hidden');
     if (activeLink) {
-      activeLink.className = 'nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-blue-700 bg-blue-50/80';
+      activeLink.className = 'nav-link active px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-blue-700 bg-blue-50/80';
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -408,6 +411,90 @@ class MedPulseApp {
     this.loadArticles();
   }
 
+  // Shared card markup for both the Healthcare Basics grid and the Nursing grid -
+  // both are just differently-filtered views over the same `articles` table.
+  articleCardHtml(art) {
+    const tags = Array.isArray(art.tags) ? art.tags : [];
+    const isEditor = this.canEditArticles();
+
+    return `
+      <div class="medical-card bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between group">
+        <div>
+          <!-- Article Image & Category Badge -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-100">
+            <img
+              src="${art.cover_image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000'}"
+              alt="${art.title}"
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            />
+            <div class="absolute top-3.5 left-3.5 flex items-center space-x-1.5">
+              <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 backdrop-blur text-blue-800 shadow-sm">
+                ${art.category}
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-900/80 backdrop-blur text-blue-300">
+                ${art.reading_time || '5 min read'}
+              </span>
+            </div>
+
+            <!-- Editor Quick Action Buttons (Protected) -->
+            ${isEditor ? `
+              <div class="absolute top-3.5 right-3.5 flex items-center space-x-1.5">
+                <button onclick="app.openArticleEditorModal(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-blue-700 shadow-md transition" title="Edit Article">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                </button>
+                <button onclick="app.deleteArticle(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-rose-700 shadow-md transition" title="Delete Article">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Content Area -->
+          <div class="p-6">
+            <div class="flex items-center space-x-2 text-xs text-slate-400 mb-2">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>${art.views || 0} views</span>
+              <span>•</span>
+              <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-emerald-600"></i>
+              <span class="font-medium text-emerald-700">${art.helpful_count || 0} found helpful</span>
+            </div>
+
+            <h3 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-blue-700 transition line-clamp-2 cursor-pointer" onclick="app.viewArticle(${art.id})">
+              ${art.title}
+            </h3>
+
+            <p class="text-xs text-slate-500 mt-2.5 line-clamp-2 leading-relaxed">
+              ${art.summary}
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5 mt-4">
+              ${tags.slice(0, 3).map(t => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">#${t}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer (Author & Read Button) -->
+        <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center text-[10px] border border-blue-200">
+              MD
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900 leading-tight">${art.author_name}</div>
+              <div class="text-[10px] text-slate-400">${art.author_title}</div>
+            </div>
+          </div>
+
+          <button onclick="app.viewArticle(${art.id})" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1">
+            <span>Read</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
   renderArticles() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
@@ -419,16 +506,16 @@ class MedPulseApp {
           <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="book-plus" class="w-7 h-7"></i>
           </div>
-          <h3 class="text-lg font-extrabold text-slate-900">No medical articles published yet</h3>
+          <h3 class="text-lg font-extrabold text-slate-900">No Healthcare Basics articles published yet</h3>
           <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-            ${isEditor 
-              ? 'Your medical library is clean and ready. Click below to draft and publish your first clinical guide.' 
+            ${isEditor
+              ? 'This library is clean and ready. Click below to draft and publish your first guide.'
               : 'Our verified clinical editorial team is preparing evidence-based publications. Please check back soon or log in as an editor to publish content.'}
           </p>
           ${isEditor ? `
-            <button onclick="app.openArticleEditorModal()" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition">
+            <button onclick="app.openArticleEditorModal(null, 'Public Health')" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
-              <span>Publish Your First Medical Article</span>
+              <span>Publish Your First Article</span>
             </button>
           ` : `
             <button onclick="app.openLoginModal()" class="mt-4 inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 transition">
@@ -442,88 +529,67 @@ class MedPulseApp {
       return;
     }
 
-    grid.innerHTML = this.articles.map(art => {
-      const tags = Array.isArray(art.tags) ? art.tags : [];
+    grid.innerHTML = this.articles.map(art => this.articleCardHtml(art)).join('');
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  /* ==================== NURSING ====================
+     Its own tab in the nav, but backed by the same `articles` table/API as Healthcare
+     Basics - just always filtered server-side to category=Nursing. */
+  async loadNursingArticles() {
+    try {
+      let url = `${API_BASE}/articles?category=${encodeURIComponent('Nursing')}`;
+      if (this.globalSearchTerm) {
+        url += `&search=${encodeURIComponent(this.globalSearchTerm)}`;
+      }
+      const res = await fetch(url);
+      const data = await res.json();
+      this.nursingArticles = data.articles || [];
+
+      const badge = document.getElementById('nursing-count-badge');
+      if (badge) badge.textContent = `${this.nursingArticles.length} Article${this.nursingArticles.length === 1 ? '' : 's'}`;
+
+      this.renderNursingArticles();
+    } catch (e) {
+      console.error('Error loading nursing articles', e);
+    }
+  }
+
+  renderNursingArticles() {
+    const grid = document.getElementById('nursing-grid');
+    if (!grid) return;
+
+    if (this.nursingArticles.length === 0) {
       const isEditor = this.canEditArticles();
-
-      return `
-        <div class="medical-card bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between group">
-          <div>
-            <!-- Article Image & Category Badge -->
-            <div class="relative h-48 w-full overflow-hidden bg-slate-100">
-              <img 
-                src="${art.cover_image || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000'}" 
-                alt="${art.title}" 
-                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-              />
-              <div class="absolute top-3.5 left-3.5 flex items-center space-x-1.5">
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 backdrop-blur text-blue-800 shadow-sm">
-                  ${art.category}
-                </span>
-                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-900/80 backdrop-blur text-blue-300">
-                  ${art.reading_time || '5 min read'}
-                </span>
-              </div>
-
-              <!-- Editor Quick Action Buttons (Protected) -->
-              ${isEditor ? `
-                <div class="absolute top-3.5 right-3.5 flex items-center space-x-1.5">
-                  <button onclick="app.openArticleEditorModal(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-blue-700 shadow-md transition" title="Edit Article">
-                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  </button>
-                  <button onclick="app.deleteArticle(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-rose-700 shadow-md transition" title="Delete Article">
-                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-
-            <!-- Content Area -->
-            <div class="p-6">
-              <div class="flex items-center space-x-2 text-xs text-slate-400 mb-2">
-                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                <span>${art.views || 0} views</span>
-                <span>•</span>
-                <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-emerald-600"></i>
-                <span class="font-medium text-emerald-700">${art.helpful_count || 0} found helpful</span>
-              </div>
-
-              <h3 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-blue-700 transition line-clamp-2 cursor-pointer" onclick="app.viewArticle(${art.id})">
-                ${art.title}
-              </h3>
-
-              <p class="text-xs text-slate-500 mt-2.5 line-clamp-2 leading-relaxed">
-                ${art.summary}
-              </p>
-
-              <!-- Tags -->
-              <div class="flex flex-wrap gap-1.5 mt-4">
-                ${tags.slice(0, 3).map(t => `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold">#${t}</span>`).join('')}
-              </div>
-            </div>
+      grid.innerHTML = `
+        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
+            <i data-lucide="stethoscope" class="w-7 h-7"></i>
           </div>
-
-          <!-- Card Footer (Author & Read Button) -->
-          <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between">
-            <div class="flex items-center space-x-2.5">
-              <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center text-[10px] border border-blue-200">
-                MD
-              </div>
-              <div>
-                <div class="text-xs font-bold text-slate-900 leading-tight">${art.author_name}</div>
-                <div class="text-[10px] text-slate-400">${art.author_title}</div>
-              </div>
-            </div>
-
-            <button onclick="app.viewArticle(${art.id})" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1">
-              <span>Read</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          <h3 class="text-lg font-extrabold text-slate-900">No nursing articles published yet</h3>
+          <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+            ${isEditor
+              ? 'This section is ready for its first nursing-focused guide.'
+              : 'Our editorial team is preparing nursing-focused content. Please check back soon.'}
+          </p>
+          ${isEditor ? `
+            <button onclick="app.openArticleEditorModal(null, 'Nursing')" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              <span>Publish Your First Nursing Article</span>
             </button>
-          </div>
+          ` : `
+            <button onclick="app.openLoginModal()" class="mt-4 inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 transition">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+              <span>Doctor / Editor Login</span>
+            </button>
+          `}
         </div>
       `;
-    }).join('');
+      if (window.lucide) window.lucide.createIcons();
+      return;
+    }
 
+    grid.innerHTML = this.nursingArticles.map(art => this.articleCardHtml(art)).join('');
     if (window.lucide) window.lucide.createIcons();
   }
 
@@ -542,7 +608,7 @@ class MedPulseApp {
       document.getElementById('reader-author-name').textContent = art.author_name;
       document.getElementById('reader-author-title').textContent = art.author_title;
       document.getElementById('reader-summary').textContent = art.summary;
-      document.getElementById('reader-date').textContent = `Published on MedPulse • ${new Date(art.created_at).toLocaleDateString()}`;
+      document.getElementById('reader-date').textContent = `Published on PANHCE • ${new Date(art.created_at).toLocaleDateString()}`;
       
       const avatar = document.getElementById('reader-author-avatar');
       if (avatar) avatar.src = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300";
@@ -783,7 +849,7 @@ class MedPulseApp {
   }
 
   /* ==================== ARTICLE EDITOR (Approved Editors Only) ==================== */
-  openArticleEditorModal(artId = null) {
+  openArticleEditorModal(artId = null, defaultCategory = 'Public Health') {
     if (!this.canEditArticles()) {
       this.showToast('Editing is restricted to approved medical staff. Please log in.', 'error');
       this.openLoginModal();
@@ -795,9 +861,11 @@ class MedPulseApp {
     const idInput = document.getElementById('edit-article-id');
 
     if (artId) {
-      const art = this.articles.find(a => a.id === artId);
+      // Articles render into two separate tabs (Healthcare Basics / Nursing) backed by
+      // two separate arrays, so the one being edited could be in either.
+      const art = this.articles.find(a => a.id === artId) || (this.nursingArticles || []).find(a => a.id === artId);
       if (!art) return;
-      headline.textContent = 'Edit Medical Article';
+      headline.textContent = 'Edit Article';
       idInput.value = art.id;
       document.getElementById('edit-article-title').value = art.title;
       document.getElementById('edit-article-category').value = art.category;
@@ -807,10 +875,10 @@ class MedPulseApp {
       document.getElementById('edit-article-summary').value = art.summary || '';
       document.getElementById('edit-article-content').value = art.content || '';
     } else {
-      headline.textContent = 'Publish New Medical Article';
+      headline.textContent = defaultCategory === 'Nursing' ? 'Publish New Nursing Article' : 'Publish New Article';
       idInput.value = '';
       document.getElementById('edit-article-title').value = '';
-      document.getElementById('edit-article-category').value = 'Cardiovascular';
+      document.getElementById('edit-article-category').value = defaultCategory;
       document.getElementById('edit-article-reading-time').value = '5 min read';
       document.getElementById('edit-article-tags').value = 'Clinical, Guidelines';
       document.getElementById('edit-article-cover').value = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1000';
@@ -871,8 +939,10 @@ class MedPulseApp {
       }
 
       this.closeArticleEditorModal();
-      this.showToast(id ? 'Medical article updated successfully!' : 'New medical article published!');
+      this.showToast(id ? 'Article updated successfully!' : 'New article published!');
+      // Category can move an article between the Nursing and Healthcare Basics tabs, so refresh both.
       await this.loadArticles();
+      await this.loadNursingArticles();
       this.loadStats();
     } catch (e) {
       console.error(e);
@@ -886,7 +956,7 @@ class MedPulseApp {
       return;
     }
 
-    if (!confirm('Are you sure you want to remove this medical article from MedPulse?')) return;
+    if (!confirm('Are you sure you want to remove this article?')) return;
 
     try {
       const res = await fetch(`${API_BASE}/articles/${id}`, {
@@ -900,8 +970,9 @@ class MedPulseApp {
         return;
       }
 
-      this.showToast('Medical article deleted.');
+      this.showToast('Article deleted.');
       await this.loadArticles();
+      await this.loadNursingArticles();
       this.loadStats();
     } catch (e) {
       console.error(e);
@@ -1297,7 +1368,7 @@ class MedPulseApp {
     if (!grid) return;
 
     if (ratings.length === 0) {
-      grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 text-xs">No ratings submitted yet. Be the first to rate MedPulse!</div>`;
+      grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 text-xs">No ratings submitted yet. Be the first to rate PANHCE!</div>`;
       return;
     }
 
@@ -1349,7 +1420,7 @@ class MedPulseApp {
     document.getElementById('rating-category').value = 'Overall Experience';
     document.getElementById('rating-feedback').value = '';
     document.getElementById('rating-recommend').checked = true;
-    document.getElementById('site-rating-headline').textContent = 'Rate MedPulse Portal';
+    document.getElementById('site-rating-headline').textContent = 'Rate PANHCE Portal';
     document.getElementById('site-rating-submit-btn').textContent = 'Submit Review';
 
     document.getElementById('modal-site-rating').classList.remove('hidden');
@@ -1484,6 +1555,7 @@ class MedPulseApp {
     if (this.globalSearchTerm) {
       this.navigate('articles');
       this.loadArticles();
+      this.loadNursingArticles();
       this.pharmacySearchTerm = this.globalSearchTerm;
       const pInput = document.getElementById('pharmacy-search-input');
       if (pInput) pInput.value = this.globalSearchTerm;
