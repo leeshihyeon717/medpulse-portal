@@ -2,4 +2,6 @@ __pycache__/
 *.pyc
 .DS_Store
 medpulse.db
+medpulse.db-shm
+medpulse.db-wal
 .bin/

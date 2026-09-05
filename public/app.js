@@ -75,7 +75,7 @@ class MedPulseApp {
     const isError = type === 'error';
     
     const bgClass = isSuccess 
-      ? 'bg-slate-900 border-teal-500 text-white' 
+      ? 'bg-slate-900 border-blue-500 text-white' 
       : isError 
       ? 'bg-rose-900 border-rose-500 text-white' 
       : 'bg-slate-900 border-slate-700 text-white';
@@ -84,7 +84,7 @@ class MedPulseApp {
 
     toast.className = `toast-message pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-2xl shadow-xl border text-xs font-semibold ${bgClass}`;
     toast.innerHTML = `
-      <i data-lucide="${icon}" class="w-4 h-4 text-teal-400 shrink-0"></i>
+      <i data-lucide="${icon}" class="w-4 h-4 text-blue-400 shrink-0"></i>
       <span>${message}</span>
     `;
 
@@ -144,9 +144,9 @@ class MedPulseApp {
       };
       const roleBadge = roleLabels[this.currentUser.role] || 'Approved Clinical Editor';
       statusContainer.innerHTML = `
-        <div class="flex items-center space-x-2 bg-teal-950/80 px-2.5 py-1 rounded-lg border border-teal-800">
-          <img src="${this.currentUser.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100'}" class="w-4 h-4 rounded-full object-cover border border-teal-400" />
-          <span class="text-teal-300 font-bold text-[11px]">${this.currentUser.name}</span>
+        <div class="flex items-center space-x-2 bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-800">
+          <img src="${this.currentUser.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100'}" class="w-4 h-4 rounded-full object-cover border border-blue-400" />
+          <span class="text-blue-300 font-bold text-[11px]">${this.currentUser.name}</span>
           <span class="text-slate-400 text-[10px]">(${this.currentUser.title})</span>
           <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-bold ${this.isAdmin() ? 'bg-indigo-900 text-indigo-200 border border-indigo-700' : 'bg-emerald-900 text-emerald-200'}">${roleBadge}</span>
         </div>
@@ -324,7 +324,7 @@ class MedPulseApp {
     const activeLink = document.getElementById(`nav-${tab}`);
     if (activeSec) activeSec.classList.remove('hidden');
     if (activeLink) {
-      activeLink.className = 'nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-teal-700 bg-teal-50/80';
+      activeLink.className = 'nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-blue-700 bg-blue-50/80';
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -399,7 +399,7 @@ class MedPulseApp {
     // Update button states
     document.querySelectorAll('.art-cat-btn').forEach(btn => {
       if (btn.textContent.trim() === category || (category === 'All' && btn.textContent.trim().includes('All'))) {
-        btn.className = 'art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-700 text-white shadow-sm transition';
+        btn.className = 'art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-700 text-white shadow-sm transition';
       } else {
         btn.className = 'art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition';
       }
@@ -416,7 +416,7 @@ class MedPulseApp {
       const isEditor = this.canEditArticles();
       grid.innerHTML = `
         <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-          <div class="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 mx-auto flex items-center justify-center mb-3">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="book-plus" class="w-7 h-7"></i>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900">No medical articles published yet</h3>
@@ -426,7 +426,7 @@ class MedPulseApp {
               : 'Our verified clinical editorial team is preparing evidence-based publications. Please check back soon or log in as an editor to publish content.'}
           </p>
           ${isEditor ? `
-            <button onclick="app.openArticleEditorModal()" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/20 transition">
+            <button onclick="app.openArticleEditorModal()" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
               <span>Publish Your First Medical Article</span>
             </button>
@@ -457,10 +457,10 @@ class MedPulseApp {
                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div class="absolute top-3.5 left-3.5 flex items-center space-x-1.5">
-                <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 backdrop-blur text-teal-800 shadow-sm">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/95 backdrop-blur text-blue-800 shadow-sm">
                   ${art.category}
                 </span>
-                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-900/80 backdrop-blur text-teal-300">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-900/80 backdrop-blur text-blue-300">
                   ${art.reading_time || '5 min read'}
                 </span>
               </div>
@@ -468,7 +468,7 @@ class MedPulseApp {
               <!-- Editor Quick Action Buttons (Protected) -->
               ${isEditor ? `
                 <div class="absolute top-3.5 right-3.5 flex items-center space-x-1.5">
-                  <button onclick="app.openArticleEditorModal(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-teal-700 shadow-md transition" title="Edit Article">
+                  <button onclick="app.openArticleEditorModal(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-blue-700 shadow-md transition" title="Edit Article">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                   </button>
                   <button onclick="app.deleteArticle(${art.id})" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-rose-700 shadow-md transition" title="Delete Article">
@@ -488,7 +488,7 @@ class MedPulseApp {
                 <span class="font-medium text-emerald-700">${art.helpful_count || 0} found helpful</span>
               </div>
 
-              <h3 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-teal-700 transition line-clamp-2 cursor-pointer" onclick="app.viewArticle(${art.id})">
+              <h3 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-blue-700 transition line-clamp-2 cursor-pointer" onclick="app.viewArticle(${art.id})">
                 ${art.title}
               </h3>
 
@@ -506,7 +506,7 @@ class MedPulseApp {
           <!-- Card Footer (Author & Read Button) -->
           <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between">
             <div class="flex items-center space-x-2.5">
-              <div class="w-7 h-7 rounded-full bg-teal-100 text-teal-800 font-bold flex items-center justify-center text-[10px] border border-teal-200">
+              <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center text-[10px] border border-blue-200">
                 MD
               </div>
               <div>
@@ -515,7 +515,7 @@ class MedPulseApp {
               </div>
             </div>
 
-            <button onclick="app.viewArticle(${art.id})" class="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1">
+            <button onclick="app.viewArticle(${art.id})" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1">
               <span>Read</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -678,14 +678,14 @@ class MedPulseApp {
                                  c.author_role.toLowerCase().includes('pharmac');
 
         return `
-          <div class="p-4 rounded-2xl ${isVerifiedDoctor ? 'bg-teal-50/50 border border-teal-200' : 'bg-slate-50 border border-slate-200'} space-y-2">
+          <div class="p-4 rounded-2xl ${isVerifiedDoctor ? 'bg-blue-50/50 border border-blue-200' : 'bg-slate-50 border border-slate-200'} space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-2">
-                <div class="w-6 h-6 rounded-full ${isVerifiedDoctor ? 'bg-teal-600 text-white' : 'bg-slate-300 text-slate-700'} flex items-center justify-center text-[10px] font-bold">
+                <div class="w-6 h-6 rounded-full ${isVerifiedDoctor ? 'bg-blue-600 text-white' : 'bg-slate-300 text-slate-700'} flex items-center justify-center text-[10px] font-bold">
                   ${c.author_name.charAt(0)}
                 </div>
                 <span class="font-bold text-slate-900 text-xs">${c.author_name}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded font-semibold ${isVerifiedDoctor ? 'bg-teal-200 text-teal-900' : 'bg-slate-200 text-slate-600'}">
+                <span class="text-[10px] px-2 py-0.5 rounded font-semibold ${isVerifiedDoctor ? 'bg-blue-200 text-blue-900' : 'bg-slate-200 text-slate-600'}">
                   ${c.author_role}
                 </span>
               </div>
@@ -696,12 +696,12 @@ class MedPulseApp {
             </p>
             <div class="flex justify-end items-center space-x-3 pt-1 text-[11px] text-slate-500">
               ${c.liked_by_me ? `
-                <span class="flex items-center space-x-1 text-teal-700 font-semibold cursor-default" title="You already marked this as helpful">
-                  <i data-lucide="heart" class="w-3.5 h-3.5 fill-teal-600 text-teal-600"></i>
+                <span class="flex items-center space-x-1 text-blue-700 font-semibold cursor-default" title="You already marked this as helpful">
+                  <i data-lucide="heart" class="w-3.5 h-3.5 fill-blue-600 text-blue-600"></i>
                   <span>${c.likes || 0} Helpful</span>
                 </span>
               ` : `
-                <button onclick="app.likeComment(${c.id})" class="flex items-center space-x-1 hover:text-teal-700 transition">
+                <button onclick="app.likeComment(${c.id})" class="flex items-center space-x-1 hover:text-blue-700 transition">
                   <i data-lucide="heart" class="w-3.5 h-3.5"></i>
                   <span>${c.likes || 0} Helpful</span>
                 </button>
@@ -967,7 +967,7 @@ class MedPulseApp {
       const isEditor = this.canEditPharmacy();
       grid.innerHTML = `
         <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-          <div class="w-14 h-14 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 mx-auto flex items-center justify-center mb-3">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="pill" class="w-7 h-7"></i>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900">No medications in pharmacy directory yet</h3>
@@ -977,7 +977,7 @@ class MedPulseApp {
               : 'Our clinical pharmacy team is updating the drug directory with clinical monographs. Please check back soon.'}
           </p>
           ${isEditor ? `
-            <button onclick="app.openPharmacyEditorModal()" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/20 transition">
+            <button onclick="app.openPharmacyEditorModal()" class="mt-4 inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition">
               <i data-lucide="plus" class="w-4 h-4"></i>
               <span>Add Your First Medication</span>
             </button>
@@ -1008,7 +1008,7 @@ class MedPulseApp {
             </div>
 
             <!-- Medication Title -->
-            <h3 class="font-black text-slate-900 text-base leading-snug cursor-pointer hover:text-teal-700 transition" onclick="app.viewPharmacyDetail(${item.id})">
+            <h3 class="font-black text-slate-900 text-base leading-snug cursor-pointer hover:text-blue-700 transition" onclick="app.viewPharmacyDetail(${item.id})">
               ${item.name}
             </h3>
             <p class="text-[11px] text-slate-500 font-medium mt-0.5">
@@ -1017,7 +1017,7 @@ class MedPulseApp {
 
             <div class="my-3 py-2 px-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-between text-xs">
               <span class="text-slate-500 text-[11px] font-medium">${item.dosage_form}</span>
-              <span class="text-teal-700 font-extrabold">$${parseFloat(item.price).toFixed(2)}</span>
+              <span class="text-blue-700 font-extrabold">$${parseFloat(item.price).toFixed(2)}</span>
             </div>
 
             <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
@@ -1034,7 +1034,7 @@ class MedPulseApp {
 
             ${isEditor ? `
               <div class="flex items-center space-x-2 pt-1">
-                <button onclick="app.openPharmacyEditorModal(${item.id})" class="w-1/2 py-1.5 rounded-lg border border-teal-200 text-teal-800 text-[11px] font-bold hover:bg-teal-50 transition flex items-center justify-center space-x-1">
+                <button onclick="app.openPharmacyEditorModal(${item.id})" class="w-1/2 py-1.5 rounded-lg border border-blue-200 text-blue-800 text-[11px] font-bold hover:bg-blue-50 transition flex items-center justify-center space-x-1">
                   <i data-lucide="edit-3" class="w-3 h-3"></i>
                   <span>Edit</span>
                 </button>
@@ -1313,7 +1313,7 @@ class MedPulseApp {
             <div class="flex items-center justify-between">
               <div class="text-sm font-bold text-slate-900">${stars}</div>
               <div class="flex items-center space-x-1.5">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-100">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-100">
                   ${r.category || 'Overall Experience'}
                 </span>
                 ${this.isAdmin() ? `
@@ -1330,7 +1330,7 @@ class MedPulseApp {
 
           <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px]">
             <div class="font-bold text-slate-800 flex items-center space-x-1">
-              <i data-lucide="user" class="w-3.5 h-3.5 text-teal-600"></i>
+              <i data-lucide="user" class="w-3.5 h-3.5 text-blue-600"></i>
               <span>${r.user_name}</span>
             </div>
             <span class="text-[10px] text-slate-400">${new Date(r.created_at).toLocaleDateString()}</span>
@@ -1512,7 +1512,7 @@ class MedPulseApp {
       : 'px-2 py-0.5 rounded-full text-[10px] font-extrabold border';
     const styles = {
       admin: `bg-indigo-100 text-indigo-800 border-indigo-200 ${sizeClass}`,
-      medical_editor: `bg-teal-100 text-teal-800 border-teal-200 ${sizeClass}`,
+      medical_editor: `bg-blue-100 text-blue-800 border-blue-200 ${sizeClass}`,
       pharmacy_editor: `bg-emerald-100 text-emerald-800 border-emerald-200 ${sizeClass}`,
       editor: `bg-slate-100 text-slate-800 border-slate-200 ${sizeClass}`
     };
@@ -1540,7 +1540,7 @@ class MedPulseApp {
       const roleBadge = this.roleBadgeHtml(u.role);
 
       return `
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start space-x-3.5 hover:border-teal-300 transition">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start space-x-3.5 hover:border-blue-300 transition">
           <img src="${u.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300'}" alt="${u.name}" class="w-12 h-12 rounded-2xl object-cover border border-slate-200 shadow-sm shrink-0" />
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between gap-1 flex-wrap">
@@ -1588,7 +1588,7 @@ class MedPulseApp {
             <div class="flex items-center space-x-3">
               <img src="${u.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300'}" class="w-9 h-9 rounded-xl object-cover border border-slate-200" />
               <div>
-                <div class="font-bold text-slate-900">${u.name} ${isSelf ? '<span class="text-[10px] font-normal text-teal-600">(You)</span>' : ''}</div>
+                <div class="font-bold text-slate-900">${u.name} ${isSelf ? '<span class="text-[10px] font-normal text-blue-600">(You)</span>' : ''}</div>
                 <div class="text-[11px] text-slate-400">Joined ${u.created_at ? u.created_at.split(' ')[0] : '2026'}</div>
               </div>
             </div>
@@ -1604,7 +1604,7 @@ class MedPulseApp {
           </td>
           <td class="py-3.5 px-4 text-right">
             <div class="flex items-center justify-end space-x-1.5">
-              <button onclick="app.openEditUserModal(${u.id})" class="p-1.5 rounded-lg text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition" title="Edit Staff Details">
+              <button onclick="app.openEditUserModal(${u.id})" class="p-1.5 rounded-lg text-slate-600 hover:text-blue-700 hover:bg-slate-100 transition" title="Edit Staff Details">
                 <i data-lucide="edit-3" class="w-4 h-4"></i>
               </button>
               ${isSelf ? `

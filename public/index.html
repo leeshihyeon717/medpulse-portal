@@ -13,14 +13,14 @@
         extend: {
           colors: {
             brand: {
-              50: '#f0fdfa',
-              100: '#ccfbf1',
-              200: '#99f6e4',
-              500: '#14b8a6',
-              600: '#0d9488',
-              700: '#0f766e',
-              800: '#115e59',
-              900: '#134e4a',
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
             },
             medical: {
               blue: '#0284c7',
@@ -66,13 +66,13 @@
         
         <!-- Logo -->
         <div class="flex items-center space-x-3 cursor-pointer" onclick="app.navigate('articles')">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20 ring-4 ring-teal-50">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 ring-4 ring-blue-50">
             <i data-lucide="activity" class="w-6 h-6 stroke-[2.5]"></i>
           </div>
           <div>
             <div class="flex items-center space-x-1.5">
-              <span class="font-extrabold text-2xl tracking-tight text-slate-900">Med<span class="text-teal-600">Pulse</span></span>
-              <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-teal-100 text-teal-800">Health & Rx</span>
+              <span class="font-extrabold text-2xl tracking-tight text-slate-900">Med<span class="text-blue-600">Pulse</span></span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-blue-100 text-blue-800">Health & Rx</span>
             </div>
             <p class="text-[11px] text-slate-500 font-medium">Evidence-Based Clinical Hub</p>
           </div>
@@ -80,7 +80,7 @@
 
         <!-- Navigation Links -->
         <nav class="hidden md:flex items-center space-x-1">
-          <button onclick="app.navigate('articles')" id="nav-articles" class="nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-teal-700 bg-teal-50/80">
+          <button onclick="app.navigate('articles')" id="nav-articles" class="nav-link active px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 text-blue-700 bg-blue-50/80">
             <i data-lucide="book-open-check" class="w-4 h-4"></i>
             <span>Medical Articles</span>
           </button>
@@ -117,11 +117,11 @@
               <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
               <span>Assign & Manage Editors</span>
             </button>
-            <button id="nav-new-article-btn" onclick="app.openArticleEditorModal()" class="hidden inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 shadow-sm transition">
+            <button id="nav-new-article-btn" onclick="app.openArticleEditorModal()" class="hidden inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
               <span>New Medical Article</span>
             </button>
-            <button id="nav-new-medication-btn" onclick="app.openPharmacyEditorModal()" class="hidden inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-teal-800 bg-teal-100 hover:bg-teal-200 border border-teal-300 transition">
+            <button id="nav-new-medication-btn" onclick="app.openPharmacyEditorModal()" class="hidden inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-blue-800 bg-blue-100 hover:bg-blue-200 border border-blue-300 transition">
               <i data-lucide="plus" class="w-4 h-4"></i>
               <span>Add Medication</span>
             </button>
@@ -167,36 +167,37 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-teal-900 via-slate-900 to-slate-950 text-white relative overflow-hidden py-14 px-4 sm:px-6 lg:px-8 border-b border-teal-950">
-    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+  <section class="relative overflow-hidden py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-950">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&q=80&w=2000');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/40 md:to-slate-950/30"></div>
     <div class="max-w-6xl mx-auto relative z-10">
-      
+
       <div class="flex flex-col md:flex-row items-center justify-between gap-8">
         <div class="max-w-2xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-400/20 text-teal-300 text-xs font-semibold mb-4">
-            <i data-lucide="stethoscope" class="w-4 h-4"></i>
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-[11px] font-bold uppercase tracking-widest mb-5">
+            <i data-lucide="stethoscope" class="w-3.5 h-3.5"></i>
             <span>Peer-Reviewed Clinical Platform</span>
           </div>
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Trustworthy Medical Insights & <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-emerald-400">Clinical Pharmacy</span>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
+            Trustworthy Medical Insights & <span class="text-blue-400">Clinical Pharmacy</span>
           </h1>
-          <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
+          <p class="mt-5 text-slate-300 text-base sm:text-lg leading-relaxed max-w-lg">
             Written strictly by approved healthcare professionals. Read clinical guides, look up medications, leave comments, and rate our platform.
           </p>
 
           <!-- Search & Filter Bar in Hero -->
-          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
             <div class="relative flex-1">
-              <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400"></i>
-              <input 
+              <i data-lucide="search" class="w-5 h-5 absolute left-4 top-3.5 text-slate-400"></i>
+              <input
                 id="global-search-input"
-                type="text" 
-                placeholder="Search medical articles, symptoms, medications, or active ingredients..." 
-                class="w-full pl-11 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:bg-white/15 transition"
+                type="text"
+                placeholder="Search medical articles, symptoms, medications, or active ingredients..."
+                class="w-full pl-11 pr-4 py-3 bg-white/10 border border-white/20 rounded-full text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition"
                 oninput="app.handleGlobalSearch(this.value)"
               />
             </div>
-            <button onclick="app.executeSearch()" class="px-6 py-3 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg shadow-teal-500/20 flex items-center justify-center space-x-2">
+            <button onclick="app.executeSearch()" class="px-7 py-3 bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold rounded-full text-sm transition shadow-lg shadow-blue-500/30 flex items-center justify-center space-x-2">
               <span>Search Database</span>
               <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
@@ -206,7 +207,7 @@
         <!-- Quick Stats Cards in Hero -->
         <div class="grid grid-cols-2 gap-3.5 w-full md:w-auto">
           <div class="bg-white/5 backdrop-blur border border-white/10 p-4 rounded-2xl">
-            <div class="flex items-center space-x-2 text-teal-400 mb-1">
+            <div class="flex items-center space-x-2 text-blue-400 mb-1">
               <i data-lucide="file-text" class="w-4 h-4"></i>
               <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">Articles</span>
             </div>
@@ -256,16 +257,17 @@
       <!-- Section Header & Filter Pills -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-blue-700 mb-1.5">Evidence-Based Library</div>
           <h2 class="text-2xl font-extrabold text-slate-900 flex items-center space-x-2">
             <span>Clinical Medical Library</span>
-            <span id="article-count-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800">5 Articles</span>
+            <span id="article-count-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">5 Articles</span>
           </h2>
           <p class="text-sm text-slate-500 mt-1">Peer-reviewed clinical summaries, disease management protocols, and health guides.</p>
         </div>
 
         <!-- Specialty Category Filters -->
         <div class="flex items-center flex-wrap gap-2" id="article-category-filters">
-          <button onclick="app.filterArticles('All')" class="art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-700 text-white shadow-sm transition">All Specialties</button>
+          <button onclick="app.filterArticles('All')" class="art-cat-btn active px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-700 text-white shadow-sm transition">All Specialties</button>
           <button onclick="app.filterArticles('Cardiovascular')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Cardiovascular</button>
           <button onclick="app.filterArticles('Endocrinology')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Endocrinology</button>
           <button onclick="app.filterArticles('Pediatrics')" class="art-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 transition">Pediatrics</button>
@@ -286,10 +288,10 @@
     <section id="section-pharmacy" class="hidden space-y-8">
       
       <!-- Pharmacy Header -->
-      <div class="bg-gradient-to-r from-teal-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div class="max-w-xl">
-            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-teal-400/20 text-teal-300 text-xs font-bold mb-3 border border-teal-400/30">
+            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-400/20 text-blue-300 text-xs font-bold mb-3 border border-blue-400/30">
               <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
               <span>MedPulse Clinical Pharmacy Directory</span>
             </div>
@@ -300,7 +302,7 @@
           </div>
 
           <div class="flex flex-col sm:flex-row gap-3">
-            <button onclick="app.openPrescriptionInquiryModal()" class="px-5 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs shadow-lg shadow-teal-500/20 transition flex items-center justify-center space-x-2">
+            <button onclick="app.openPrescriptionInquiryModal()" class="px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs shadow-lg shadow-blue-500/20 transition flex items-center justify-center space-x-2">
               <i data-lucide="clipboard-list" class="w-4 h-4"></i>
               <span>Prescription Refill Inquiry</span>
             </button>
@@ -325,7 +327,7 @@
             type="text" 
             id="pharmacy-search-input"
             placeholder="Search drug or symptom..." 
-            class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition"
+            class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
             oninput="app.filterPharmacySearch(this.value)"
           />
         </div>
@@ -335,7 +337,7 @@
           <label for="pharmacy-category-select" class="text-xs font-bold text-slate-500 whitespace-nowrap">Category:</label>
           <select 
             id="pharmacy-category-select" 
-            class="text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            class="text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onchange="app.filterPharmacyCategory(this.value)"
           >
             <option value="All">All Categories</option>
@@ -375,7 +377,7 @@
             </div>
             <p id="rating-total-label" class="text-xs text-slate-500">Based on 5 verified reviews</p>
             
-            <button onclick="app.openSiteRatingModal()" class="mt-4 w-full px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center justify-center space-x-2">
+            <button onclick="app.openSiteRatingModal()" class="mt-4 w-full px-4 py-2.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition flex items-center justify-center space-x-2">
               <i data-lucide="star" class="w-4 h-4"></i>
               <span>Submit Your Rating</span>
             </button>
@@ -447,8 +449,8 @@
     <section id="section-about" class="hidden space-y-8 max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
         
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-bold border border-teal-200">
-          <i data-lucide="shield-check" class="w-4 h-4 text-teal-600"></i>
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-bold border border-blue-200">
+          <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i>
           <span>Governance & Integrity</span>
         </div>
 
@@ -460,9 +462,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
           
-          <div class="p-5 rounded-2xl bg-teal-50/50 border border-teal-100 space-y-2">
-            <div class="flex items-center space-x-2 text-teal-900 font-bold text-sm">
-              <i data-lucide="user-check" class="w-5 h-5 text-teal-600"></i>
+          <div class="p-5 rounded-2xl bg-blue-50/50 border border-blue-100 space-y-2">
+            <div class="flex items-center space-x-2 text-blue-900 font-bold text-sm">
+              <i data-lucide="user-check" class="w-5 h-5 text-blue-600"></i>
               <span>Approved Medical Editors</span>
             </div>
             <p class="text-xs text-slate-600 leading-relaxed">
@@ -472,7 +474,7 @@
 
           <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div class="flex items-center space-x-2 text-slate-900 font-bold text-sm">
-              <i data-lucide="message-square" class="w-5 h-5 text-teal-600"></i>
+              <i data-lucide="message-square" class="w-5 h-5 text-blue-600"></i>
               <span>Visitors & Patients</span>
             </div>
             <p class="text-xs text-slate-600 leading-relaxed">
@@ -494,13 +496,13 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h3 class="text-xl font-black text-slate-900 flex items-center space-x-2">
-                <i data-lucide="award" class="w-5 h-5 text-teal-600"></i>
+                <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
                 <span>Accredited Clinical Editorial Board</span>
               </h3>
               <p class="text-xs text-slate-500 mt-0.5">Verified clinicians who review, author, and maintain clinical literature on MedPulse.</p>
             </div>
             <div id="admin-quick-assign-wrapper" class="hidden">
-              <button onclick="app.openAssignUserModal()" class="px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
+              <button onclick="app.openAssignUserModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-sm">
                 <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
                 <span>Assign New Editor</span>
               </button>
@@ -522,7 +524,7 @@
   <footer class="bg-white border-t border-slate-200 py-10 mt-16 text-slate-500 text-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold">
+        <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
           <i data-lucide="activity" class="w-4 h-4"></i>
         </div>
         <div>
@@ -536,7 +538,7 @@
         <button onclick="app.navigate('pharmacy')" class="hover:text-slate-900">Pharmacy</button>
         <button onclick="app.navigate('ratings')" class="hover:text-slate-900">Site Ratings</button>
         <button onclick="app.navigate('about')" class="hover:text-slate-900">Editorial Policy</button>
-        <button onclick="app.openLoginModal()" class="text-teal-700 font-semibold hover:underline">Doctor Portal</button>
+        <button onclick="app.openLoginModal()" class="text-blue-700 font-semibold hover:underline">Doctor Portal</button>
       </div>
     </div>
   </footer>
@@ -550,7 +552,7 @@
       <!-- Reader Header -->
       <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/70 shrink-0">
         <div class="flex items-center space-x-3">
-          <span id="reader-category-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-teal-100 text-teal-800">Cardiology</span>
+          <span id="reader-category-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Cardiology</span>
           <span id="reader-reading-time" class="text-xs text-slate-500 font-medium">6 min read</span>
         </div>
         <button onclick="app.closeArticleReader()" class="w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition">
@@ -566,11 +568,11 @@
         <!-- Author Byline -->
         <div class="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-slate-100">
           <div class="flex items-center space-x-3">
-            <img id="reader-author-avatar" src="" alt="Author" class="w-11 h-11 rounded-full object-cover border-2 border-teal-500 shadow-sm" />
+            <img id="reader-author-avatar" src="" alt="Author" class="w-11 h-11 rounded-full object-cover border-2 border-blue-500 shadow-sm" />
             <div>
               <div class="flex items-center space-x-1.5">
                 <span id="reader-author-name" class="font-bold text-slate-900 text-sm">Dr. Author</span>
-                <i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600"></i>
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600"></i>
               </div>
               <p id="reader-author-title" class="text-xs text-slate-500">Cardiologist</p>
             </div>
@@ -584,8 +586,8 @@
         </div>
 
         <!-- Summary Callout -->
-        <div class="p-4 rounded-2xl bg-teal-50/70 border border-teal-100 text-teal-950 text-sm font-medium">
-          <div class="text-xs uppercase font-bold text-teal-800 tracking-wider mb-1 flex items-center space-x-1">
+        <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-100 text-blue-950 text-sm font-medium">
+          <div class="text-xs uppercase font-bold text-blue-800 tracking-wider mb-1 flex items-center space-x-1">
             <i data-lucide="bookmark" class="w-3.5 h-3.5"></i>
             <span>Clinical Summary</span>
           </div>
@@ -619,7 +621,7 @@
         <div class="pt-6 border-t border-slate-200 space-y-6">
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-extrabold text-slate-900 flex items-center space-x-2">
-              <i data-lucide="messages-square" class="w-5 h-5 text-teal-600"></i>
+              <i data-lucide="messages-square" class="w-5 h-5 text-blue-600"></i>
               <span>Community Discussion & Questions</span>
             </h3>
             <span id="comment-count-badge" class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">0 Comments</span>
@@ -629,12 +631,12 @@
           <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Post a Medical Question or Comment</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="comment-name-role-inputs">
-              <input type="text" id="comment-author-name" placeholder="Your Name or Initial (e.g. John D.)" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
-              <input type="text" id="comment-author-role" placeholder="Role/Background (e.g. Patient, Caregiver, RN)" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+              <input type="text" id="comment-author-name" placeholder="Your Name or Initial (e.g. John D.)" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
+              <input type="text" id="comment-author-role" placeholder="Role/Background (e.g. Patient, Caregiver, RN)" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
             </div>
-            <textarea id="comment-content" rows="3" placeholder="Share your experience or ask a question regarding this medical topic..." class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+            <textarea id="comment-content" rows="3" placeholder="Share your experience or ask a question regarding this medical topic..." class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
             <div class="flex justify-end">
-              <button onclick="app.submitComment()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center space-x-1.5">
+              <button onclick="app.submitComment()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition flex items-center space-x-1.5">
                 <i data-lucide="send" class="w-3.5 h-3.5"></i>
                 <span>Submit Comment</span>
               </button>
@@ -679,13 +681,13 @@
           </div>
           <div>
             <span class="text-slate-400 font-bold uppercase text-[10px]">Estimated Price</span>
-            <div id="pharm-modal-price" class="font-bold text-teal-700 mt-0.5">$14.50</div>
+            <div id="pharm-modal-price" class="font-bold text-blue-700 mt-0.5">$14.50</div>
           </div>
         </div>
 
         <div class="space-y-1.5">
           <h4 class="font-extrabold text-slate-900 text-xs flex items-center space-x-1.5">
-            <i data-lucide="check-circle" class="w-4 h-4 text-teal-600"></i>
+            <i data-lucide="check-circle" class="w-4 h-4 text-blue-600"></i>
             <span>Approved Indications & Usage</span>
           </h4>
           <p id="pharm-modal-indications" class="p-3 bg-slate-50 rounded-xl leading-relaxed text-slate-600"></p>
@@ -769,12 +771,12 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Your Name</label>
-          <input type="text" id="rating-user-name" placeholder="Dr. / Patient / Full Name" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="text" id="rating-user-name" placeholder="Dr. / Patient / Full Name" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Category of Feedback</label>
-          <select id="rating-category" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500">
+          <select id="rating-category" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="Overall Experience">Overall Experience</option>
             <option value="Clinical Accuracy">Clinical Accuracy</option>
             <option value="Pharmacy Catalog">Pharmacy & Drug Directory</option>
@@ -784,11 +786,11 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Your Review & Comments</label>
-          <textarea id="rating-feedback" rows="3" placeholder="What did you like most about MedPulse? Any suggestions for our medical editorial team?" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+          <textarea id="rating-feedback" rows="3" placeholder="What did you like most about MedPulse? Any suggestions for our medical editorial team?" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div class="flex items-center space-x-2">
-          <input type="checkbox" id="rating-recommend" checked class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500" />
+          <input type="checkbox" id="rating-recommend" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" />
           <label for="rating-recommend" class="text-xs text-slate-700 font-medium">I would recommend MedPulse to colleagues or patients.</label>
         </div>
 
@@ -796,7 +798,7 @@
 
       <div class="flex space-x-3 pt-2">
         <button onclick="app.closeSiteRatingModal()" class="w-1/3 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">Cancel</button>
-        <button id="site-rating-submit-btn" onclick="app.submitSiteRating()" class="w-2/3 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-md shadow-teal-600/20">Submit Review</button>
+        <button id="site-rating-submit-btn" onclick="app.submitSiteRating()" class="w-2/3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Submit Review</button>
       </div>
 
     </div>
@@ -807,7 +809,7 @@
     <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden my-auto p-6 sm:p-8 border border-slate-200 space-y-5">
       
       <div class="text-center">
-        <div class="w-12 h-12 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 mx-auto flex items-center justify-center mb-3">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
           <i data-lucide="stethoscope" class="w-6 h-6"></i>
         </div>
         <h3 class="text-2xl font-black text-slate-900">Approved Medical Login</h3>
@@ -815,19 +817,19 @@
       </div>
 
       <!-- Demo Accounts Info Box -->
-      <div class="p-3.5 rounded-2xl bg-teal-50/70 border border-teal-100 text-xs text-teal-950 space-y-1.5">
-        <div class="font-bold text-teal-900 flex items-center space-x-1">
+      <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 text-xs text-blue-950 space-y-1.5">
+        <div class="font-bold text-blue-900 flex items-center space-x-1">
           <i data-lucide="key" class="w-3.5 h-3.5"></i>
           <span>Click to autofill approved credentials:</span>
         </div>
         <div class="flex flex-col gap-1 pt-1">
-          <button type="button" onclick="app.fillDemoAuth('shihyeon.lee@medpulse.org', 'MedicalAdmin2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-teal-200 text-[11px] font-medium text-slate-800 transition">
+          <button type="button" onclick="app.fillDemoAuth('shihyeon.lee@medpulse.org', 'MedicalAdmin2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-blue-200 text-[11px] font-medium text-slate-800 transition">
             📄 <strong>Shihyeon Lee</strong> (Medical Article Editor only)
           </button>
-          <button type="button" onclick="app.fillDemoAuth('jay.cho@medpulse.org', 'DoctorSarah2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-teal-200 text-[11px] font-medium text-slate-800 transition">
+          <button type="button" onclick="app.fillDemoAuth('jay.cho@medpulse.org', 'DoctorSarah2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-blue-200 text-[11px] font-medium text-slate-800 transition">
             💊 <strong>Jay Cho</strong> (Medication Editor only)
           </button>
-          <button type="button" onclick="app.fillDemoAuth('admin.full1@medpulse.org', 'MedicalAdmin2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-teal-200 text-[11px] font-medium text-slate-800 transition">
+          <button type="button" onclick="app.fillDemoAuth('admin.full1@medpulse.org', 'MedicalAdmin2026!')" class="text-left px-2.5 py-1.5 bg-white/90 hover:bg-white rounded-lg border border-blue-200 text-[11px] font-medium text-slate-800 transition">
             🛡️ <strong>Admin Full 1</strong> (Full Administrator access)
           </button>
         </div>
@@ -837,19 +839,19 @@
       <form onsubmit="app.handleLogin(event)" class="space-y-3.5">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Approved Medical Email</label>
-          <input type="email" id="login-email" required placeholder="shihyeon.lee@medpulse.org" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="email" id="login-email" required placeholder="shihyeon.lee@medpulse.org" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
-          <input type="password" id="login-password" required placeholder="••••••••••••" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="password" id="login-password" required placeholder="••••••••••••" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div id="login-error-msg" class="hidden text-xs font-bold text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-200"></div>
 
         <div class="flex space-x-2 pt-2">
           <button type="button" onclick="app.closeLoginModal()" class="w-1/3 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">Cancel</button>
-          <button type="submit" class="w-2/3 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-md shadow-teal-600/20">Verify & Log In</button>
+          <button type="submit" class="w-2/3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Verify & Log In</button>
         </div>
       </form>
 
@@ -862,7 +864,7 @@
       
       <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
         <div>
-          <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-800">Approved Editor Studio</span>
+          <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Approved Editor Studio</span>
           <h3 id="article-editor-headline" class="text-xl font-extrabold text-slate-900 mt-1">Publish Medical Article</h3>
         </div>
         <button onclick="app.closeArticleEditorModal()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition">
@@ -875,13 +877,13 @@
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Article Title *</label>
-          <input type="text" id="edit-article-title" required placeholder="e.g., Clinical Guidelines for Acute Coronary Syndrome" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white font-semibold text-slate-900" />
+          <input type="text" id="edit-article-title" required placeholder="e.g., Clinical Guidelines for Acute Coronary Syndrome" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white font-semibold text-slate-900" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Specialty Category *</label>
-            <select id="edit-article-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <select id="edit-article-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="Cardiovascular">Cardiovascular</option>
               <option value="Endocrinology">Endocrinology</option>
               <option value="Pediatrics">Pediatrics</option>
@@ -894,35 +896,35 @@
 
           <div>
             <label class="block font-bold text-slate-700 mb-1">Estimated Reading Time</label>
-            <input type="text" id="edit-article-reading-time" placeholder="5 min read" value="5 min read" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="text" id="edit-article-reading-time" placeholder="5 min read" value="5 min read" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
 
           <div>
             <label class="block font-bold text-slate-700 mb-1">Tags (comma separated)</label>
-            <input type="text" id="edit-article-tags" placeholder="Cardiology, Guidelines, Protocol" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="text" id="edit-article-tags" placeholder="Cardiology, Guidelines, Protocol" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Cover Image URL</label>
-          <input type="text" id="edit-article-cover" placeholder="https://images.unsplash.com/photo-..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="text" id="edit-article-cover" placeholder="https://images.unsplash.com/photo-..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Clinical Abstract / Summary *</label>
-          <textarea id="edit-article-summary" rows="2" placeholder="Concise summary for practitioners and patients..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+          <textarea id="edit-article-summary" rows="2" placeholder="Concise summary for practitioners and patients..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Full Article Content (Markdown Supported) *</label>
-          <textarea id="edit-article-content" rows="10" placeholder="Write comprehensive medical guidance using markdown formatting (### Headings, - Bullet points, > Notes, etc.)..." class="w-full font-mono text-xs px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white"></textarea>
+          <textarea id="edit-article-content" rows="10" placeholder="Write comprehensive medical guidance using markdown formatting (### Headings, - Bullet points, > Notes, etc.)..." class="w-full font-mono text-xs px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"></textarea>
         </div>
 
       </div>
 
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end space-x-3">
         <button onclick="app.closeArticleEditorModal()" class="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">Cancel</button>
-        <button onclick="app.saveArticle()" class="px-6 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-md shadow-teal-600/20">Publish to MedPulse</button>
+        <button onclick="app.saveArticle()" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Publish to MedPulse</button>
       </div>
 
     </div>
@@ -934,7 +936,7 @@
       
       <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
         <div>
-          <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-800">Pharmacy Inventory Studio</span>
+          <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Pharmacy Inventory Studio</span>
           <h3 id="pharmacy-editor-headline" class="text-xl font-extrabold text-slate-900 mt-1">Add Pharmacy Medication</h3>
         </div>
         <button onclick="app.closePharmacyEditorModal()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition">
@@ -948,18 +950,18 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Medication Brand Name *</label>
-            <input type="text" id="edit-pharm-name" required placeholder="e.g., Augmentin" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="text" id="edit-pharm-name" required placeholder="e.g., Augmentin" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
           <div>
             <label class="block font-bold text-slate-700 mb-1">Generic Name *</label>
-            <input type="text" id="edit-pharm-generic" required placeholder="e.g., Amoxicillin / Clavulanate" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="text" id="edit-pharm-generic" required placeholder="e.g., Amoxicillin / Clavulanate" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Category *</label>
-            <select id="edit-pharm-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <select id="edit-pharm-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="Antibiotics">Antibiotics</option>
               <option value="Cardiovascular">Cardiovascular</option>
               <option value="Diabetes Care">Diabetes Care</option>
@@ -972,50 +974,50 @@
 
           <div>
             <label class="block font-bold text-slate-700 mb-1">Dosage Form</label>
-            <input type="text" id="edit-pharm-dosage" placeholder="500mg Tablet" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="text" id="edit-pharm-dosage" placeholder="500mg Tablet" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
 
           <div>
             <label class="block font-bold text-slate-700 mb-1">Price ($)</label>
-            <input type="number" step="0.01" id="edit-pharm-price" placeholder="19.99" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="number" step="0.01" id="edit-pharm-price" placeholder="19.99" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
         </div>
 
         <div class="flex items-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
-          <input type="checkbox" id="edit-pharm-rx" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500" />
+          <input type="checkbox" id="edit-pharm-rx" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500" />
           <label for="edit-pharm-rx" class="text-slate-800 font-bold">Prescription Required (Rx Only)</label>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Approved Indications *</label>
-          <textarea id="edit-pharm-indications" rows="2" placeholder="What clinical conditions does this treat?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+          <textarea id="edit-pharm-indications" rows="2" placeholder="What clinical conditions does this treat?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Administration & Dosing Instructions *</label>
-          <textarea id="edit-pharm-usage" rows="2" placeholder="How and when should this medication be taken?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+          <textarea id="edit-pharm-usage" rows="2" placeholder="How and when should this medication be taken?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Adverse Effects & Warnings</label>
-          <textarea id="edit-pharm-side-effects" rows="2" placeholder="Common side effects, precaution tips..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white resize-none"></textarea>
+          <textarea id="edit-pharm-side-effects" rows="2" placeholder="Common side effects, precaution tips..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white resize-none"></textarea>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Contraindications</label>
-          <input type="text" id="edit-pharm-contraindications" placeholder="When should this drug NOT be taken?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="text" id="edit-pharm-contraindications" placeholder="When should this drug NOT be taken?" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Storage Conditions</label>
-          <input type="text" id="edit-pharm-storage" value="Store at 20°C to 25°C in a dry place." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="text" id="edit-pharm-storage" value="Store at 20°C to 25°C in a dry place." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
       </div>
 
       <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end space-x-3">
         <button onclick="app.closePharmacyEditorModal()" class="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-100 transition">Cancel</button>
-        <button onclick="app.savePharmacyItem()" class="px-6 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-md shadow-teal-600/20">Save Medication</button>
+        <button onclick="app.savePharmacyItem()" class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md shadow-blue-600/20">Save Medication</button>
       </div>
 
     </div>
@@ -1027,7 +1029,7 @@
       
       <div class="flex justify-between items-start">
         <div>
-          <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800 text-[11px] font-bold">
+          <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-bold">
             <i data-lucide="file-check" class="w-3.5 h-3.5"></i>
             <span>Pharmacy Consultation</span>
           </div>
@@ -1045,25 +1047,25 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Patient Full Name</label>
-          <input type="text" id="rx-patient-name" placeholder="Jane Doe" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          <input type="text" id="rx-patient-name" placeholder="Jane Doe" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Medication Name & Dosage</label>
-          <input type="text" id="rx-med-name" placeholder="e.g. Metformin 500mg XR" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          <input type="text" id="rx-med-name" placeholder="e.g. Metformin 500mg XR" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Doctor / Clinic Reference</label>
-          <input type="text" id="rx-doctor-ref" placeholder="Dr. Smith / Metro Clinic" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          <input type="text" id="rx-doctor-ref" placeholder="Dr. Smith / Metro Clinic" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Additional Notes / Allergies</label>
-          <textarea id="rx-notes" rows="2" placeholder="Any specific instructions or allergies..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"></textarea>
+          <textarea id="rx-notes" rows="2" placeholder="Any specific instructions or allergies..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
         </div>
       </div>
 
       <div class="flex space-x-2 pt-2">
         <button onclick="app.closePrescriptionInquiryModal()" class="w-1/3 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold">Cancel</button>
-        <button onclick="app.submitPrescriptionInquiry()" class="w-2/3 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-sm">Submit Request</button>
+        <button onclick="app.submitPrescriptionInquiry()" class="w-2/3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm">Submit Request</button>
       </div>
 
     </div>
@@ -1085,7 +1087,7 @@
           </div>
         </div>
         <div class="flex items-center space-x-2">
-          <button onclick="app.openAssignUserModal()" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1.5">
+          <button onclick="app.openAssignUserModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center space-x-1.5">
             <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
             <span>Assign New Editor</span>
           </button>
@@ -1147,7 +1149,7 @@
       
       <div class="flex justify-between items-start">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center">
+          <div class="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center">
             <i data-lucide="user-check" class="w-5 h-5"></i>
           </div>
           <div>
@@ -1164,10 +1166,10 @@
       <div id="user-form-quick-templates" class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-[11px] space-y-1.5">
         <span class="font-bold text-slate-700">Quick-Fill Sample Doctor Profiles:</span>
         <div class="flex flex-wrap gap-1.5 pt-1">
-          <button type="button" onclick="app.fillDoctorTemplate('Dr. Marcus Reed, MD', 'marcus.reed@medpulse.org', 'Senior Neurologist & Stroke Specialist', 'editor', 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300')" class="px-2.5 py-1 bg-white hover:bg-teal-50 text-slate-700 hover:text-teal-800 rounded-lg border border-slate-200 font-medium transition">
+          <button type="button" onclick="app.fillDoctorTemplate('Dr. Marcus Reed, MD', 'marcus.reed@medpulse.org', 'Senior Neurologist & Stroke Specialist', 'editor', 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300')" class="px-2.5 py-1 bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-800 rounded-lg border border-slate-200 font-medium transition">
             👨‍⚕️ Dr. Reed (Neurology)
           </button>
-          <button type="button" onclick="app.fillDoctorTemplate('Dr. Elena Rostova, MD', 'elena.rostova@medpulse.org', 'Associate Professor of Pediatric Medicine', 'editor', 'https://images.unsplash.com/photo-1594824813589-a2a4b862bbd7?auto=format&fit=crop&q=80&w=300')" class="px-2.5 py-1 bg-white hover:bg-teal-50 text-slate-700 hover:text-teal-800 rounded-lg border border-slate-200 font-medium transition">
+          <button type="button" onclick="app.fillDoctorTemplate('Dr. Elena Rostova, MD', 'elena.rostova@medpulse.org', 'Associate Professor of Pediatric Medicine', 'editor', 'https://images.unsplash.com/photo-1594824813589-a2a4b862bbd7?auto=format&fit=crop&q=80&w=300')" class="px-2.5 py-1 bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-800 rounded-lg border border-slate-200 font-medium transition">
             👩‍⚕️ Dr. Rostova (Pediatrics)
           </button>
         </div>
@@ -1178,23 +1180,23 @@
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Full Name & Credential *</label>
-          <input type="text" id="user-form-name" required placeholder="e.g., Dr. Marcus Reed, MD" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white font-medium text-slate-900" />
+          <input type="text" id="user-form-name" required placeholder="e.g., Dr. Marcus Reed, MD" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white font-medium text-slate-900" />
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Medical Email *</label>
-          <input type="email" id="user-form-email" required placeholder="marcus.reed@medpulse.org" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white font-medium text-slate-900" />
+          <input type="email" id="user-form-email" required placeholder="marcus.reed@medpulse.org" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white font-medium text-slate-900" />
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Clinical Title & Department *</label>
-          <input type="text" id="user-form-title" required placeholder="e.g., Senior Attending Neurologist" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white font-medium text-slate-900" />
+          <input type="text" id="user-form-title" required placeholder="e.g., Senior Attending Neurologist" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white font-medium text-slate-900" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Permission Role *</label>
-            <select id="user-form-role" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 font-semibold text-slate-900">
+            <select id="user-form-role" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-900">
               <option value="medical_editor">Medical Article Editor (Articles Only)</option>
               <option value="pharmacy_editor">Medication Editor (Pharmacy Only)</option>
               <option value="editor">Clinical Editor (Full Content Access)</option>
@@ -1204,20 +1206,20 @@
 
           <div>
             <label class="block font-bold text-slate-700 mb-1" id="user-form-password-label">Password *</label>
-            <input type="password" id="user-form-password" placeholder="••••••••••••" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+            <input type="password" id="user-form-password" placeholder="••••••••••••" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
           </div>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">Avatar Image URL</label>
-          <input type="text" id="user-form-avatar" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white" />
+          <input type="text" id="user-form-avatar" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <div id="user-form-error" class="hidden p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-bold"></div>
 
         <div class="flex space-x-2 pt-2">
           <button type="button" onclick="app.closeUserFormModal()" class="w-1/3 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-100 transition">Cancel</button>
-          <button type="submit" id="user-form-submit-btn" class="w-2/3 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold transition shadow-md shadow-teal-600/20">Assign Editor</button>
+          <button type="submit" id="user-form-submit-btn" class="w-2/3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition shadow-md shadow-blue-600/20">Assign Editor</button>
         </div>
       </form>
 
