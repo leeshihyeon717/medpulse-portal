@@ -45,7 +45,7 @@ An evidence-based medical publication and clinical pharmacy web platform designe
 
 | Name | Role | Email | Password | Access |
 | :--- | :--- | :--- | :--- | :--- |
-| **Shihyeon Lee** | Medical Article Editor | `shihyeon.lee@medpulse.org` | `MedicalAdmin2026!` | Medical articles only |
+| **GAY ASSHOLE** | Medical Article Editor | `shihyeon.lee@medpulse.org` | `MedicalAdmin2026!` | Medical articles only |
 | **Admin 1–4 Medical** | Medical Article Editor | `admin1.medical@medpulse.org` … `admin4.medical@medpulse.org` | `MedicalAdmin2026!` | Medical articles only |
 | **Jay Cho** | Medication Editor | `jay.cho@medpulse.org` | `DoctorSarah2026!` | Pharmacy/medications only |
 | **Admin 1–4 Medicine** | Medication Editor | `admin1.medicine@medpulse.org` … `admin4.medicine@medpulse.org` | `DoctorSarah2026!` | Pharmacy/medications only |
