@@ -6,7 +6,7 @@ An evidence-based medical publication and clinical pharmacy web platform designe
 
 ## 🌟 Key Features
 
-### 1. 📖 NIGGER
+### 1. 📖HIHYEON
 - Rich clinical summaries and patient guides across specialties (**Cardiovascular, Endocrinology, Pediatrics, Immunology, Pharmacology**).
 - Full Markdown reading mode with author credentials, specialty badges, reading time estimation, and references.
 - Helpfulness rating widget ("Was this clinical guide helpful?").
