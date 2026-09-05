@@ -56,11 +56,19 @@ class MedPulseApp {
 
     // Check hash for direct navigation
     const hash = window.location.hash.replace('#', '');
-    if (['home', 'pharmacy', 'nursing', 'articles', 'quiz', 'ratings', 'about'].includes(hash)) {
+    const VALID_TABS = ['home', 'pharmacy', 'nursing', 'pt', 'ot', 'other-health', 'education', 'student-resources', 'articles', 'ratings', 'about'];
+    if (VALID_TABS.includes(hash)) {
       this.navigate(hash);
     } else {
       this.navigate('home');
     }
+
+    // Close the "Explore Careers" dropdown when clicking anywhere outside it
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.nav-dropdown[open]').forEach(d => {
+        if (!d.contains(e.target)) d.removeAttribute('open');
+      });
+    });
 
     if (window.lucide) {
       window.lucide.createIcons();
@@ -84,7 +92,7 @@ class MedPulseApp {
 
     const icon = isSuccess ? 'check-circle' : isError ? 'alert-circle' : 'info';
 
-    toast.className = `toast-message pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-2xl shadow-xl border text-xs font-semibold ${bgClass}`;
+    toast.className = `toast-message pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-md shadow-xl border text-xs font-semibold ${bgClass}`;
     toast.innerHTML = `
       <i data-lucide="${icon}" class="w-4 h-4 text-blue-400 shrink-0"></i>
       <span>${message}</span>
@@ -146,19 +154,16 @@ class MedPulseApp {
       };
       const roleBadge = roleLabels[this.currentUser.role] || 'Approved Clinical Editor';
       statusContainer.innerHTML = `
-        <div class="flex items-center space-x-2 bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-800">
-          <img src="${this.currentUser.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100'}" class="w-4 h-4 rounded-full object-cover border border-blue-400" />
-          <span class="text-blue-300 font-bold text-[11px]">${this.currentUser.name}</span>
-          <span class="text-slate-400 text-[10px]">(${this.currentUser.title})</span>
-          <span class="ml-1 px-1.5 py-0.2 rounded text-[9px] font-bold ${this.isAdmin() ? 'bg-indigo-900 text-indigo-200 border border-indigo-700' : 'bg-emerald-900 text-emerald-200'}">${roleBadge}</span>
+        <div class="flex items-center space-x-2">
+          <img src="${this.currentUser.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=100'}" class="w-4 h-4 rounded-full object-cover border border-blue-300" />
+          <span class="font-bold">${this.currentUser.name}</span>
+          <span class="text-blue-300">(${this.currentUser.title})</span>
+          <span class="ml-1 px-1.5 py-0.2 rounded text-[10px] font-bold bg-blue-800 text-blue-100">${roleBadge}</span>
         </div>
       `;
 
       authBtnWrapper.innerHTML = `
-        <button onclick="app.logout()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition">
-          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-          <span>Log Out</span>
-        </button>
+        <button onclick="app.logout()" class="text-sm font-semibold text-rose-700 hover:underline whitespace-nowrap">Log Out</button>
       `;
 
       if (editorActions) {
@@ -190,17 +195,13 @@ class MedPulseApp {
     } else {
       // Guest / Visitor
       statusContainer.innerHTML = `
-        <div class="flex items-center space-x-2 text-slate-400 text-[11px]">
-          <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-          <span>Guest Mode (Read & Comment Access)</span>
+        <div class="flex items-center space-x-2 text-blue-200">
+          <span>Guest Mode (Read &amp; Comment Access)</span>
         </div>
       `;
 
       authBtnWrapper.innerHTML = `
-        <button onclick="app.openLoginModal()" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition">
-          <i data-lucide="lock" class="w-4 h-4 text-slate-500"></i>
-          <span>Doctor / Editor Login</span>
-        </button>
+        <button onclick="app.openLoginModal()" class="text-sm font-semibold text-slate-600 hover:text-blue-700 whitespace-nowrap">Staff Login</button>
       `;
 
       if (editorActions) {
@@ -307,28 +308,51 @@ class MedPulseApp {
     this.showToast('You have been logged out. Switched to visitor mode.');
   }
 
-  /* ==================== NAVIGATION ==================== */
+  /* ==================== NAVIGATION ====================
+     Two visually different kinds of nav links share this one function:
+     - Top-level links (Home, Education, Student Resources, Health Information, About)
+       get an underline-style active state.
+     - "Explore Careers" dropdown items (Pharmacy, Nursing, PT, OT, Other) get a
+       highlight-style active state instead, since they sit in a dropdown panel. */
   navigate(tab) {
     this.activeTab = tab;
     window.location.hash = tab;
 
-    // Hide all sections
-    ['home', 'pharmacy', 'nursing', 'articles', 'quiz', 'ratings', 'about'].forEach(t => {
+    const ALL_TABS = ['home', 'pharmacy', 'nursing', 'pt', 'ot', 'other-health', 'education', 'student-resources', 'articles', 'ratings', 'about'];
+    const DROPDOWN_TABS = ['pharmacy', 'nursing', 'pt', 'ot', 'other-health'];
+
+    const TOP_INACTIVE = 'nav-link text-sm font-semibold text-slate-700 hover:text-blue-700 py-1 border-b-2 border-transparent transition-colors';
+    const TOP_ACTIVE = 'nav-link active text-sm font-semibold text-blue-700 border-b-2 border-blue-700 py-1 transition-colors';
+    const DROPDOWN_INACTIVE = 'w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors';
+    const DROPDOWN_ACTIVE = 'w-full text-left px-4 py-2 text-sm font-semibold text-blue-700 bg-blue-50 transition-colors';
+
+    // Hide all sections and reset every nav link to its inactive style
+    ALL_TABS.forEach(t => {
       const sec = document.getElementById(`section-${t}`);
       const link = document.getElementById(`nav-${t}`);
       if (sec) sec.classList.add('hidden');
       if (link) {
-        link.className = 'nav-link px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100';
+        link.className = DROPDOWN_TABS.includes(t) ? DROPDOWN_INACTIVE : TOP_INACTIVE;
       }
     });
 
-    // Show active section
+    // Show the active section and mark its nav link active
     const activeSec = document.getElementById(`section-${tab}`);
     const activeLink = document.getElementById(`nav-${tab}`);
     if (activeSec) activeSec.classList.remove('hidden');
     if (activeLink) {
-      activeLink.className = 'nav-link active px-3 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap flex items-center space-x-1.5 text-blue-700 bg-blue-50/80';
+      activeLink.className = DROPDOWN_TABS.includes(tab) ? DROPDOWN_ACTIVE : TOP_ACTIVE;
     }
+
+    // The "Explore Careers" dropdown trigger itself shows as active when one of its items is
+    const careersTrigger = document.getElementById('nav-careers-trigger');
+    if (careersTrigger) {
+      careersTrigger.classList.toggle('text-blue-700', DROPDOWN_TABS.includes(tab));
+      careersTrigger.classList.toggle('font-bold', DROPDOWN_TABS.includes(tab));
+    }
+    // Close the dropdown after choosing an item from it
+    const dropdown = document.querySelector('.nav-dropdown[open]');
+    if (dropdown) dropdown.removeAttribute('open');
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (window.lucide) window.lucide.createIcons();
@@ -418,7 +442,7 @@ class MedPulseApp {
     const isEditor = this.canEditArticles();
 
     return `
-      <div class="medical-card bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between group">
+      <div class="medical-card bg-white rounded-md border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between group">
         <div>
           <!-- Article Image & Category Badge -->
           <div class="relative h-48 w-full overflow-hidden bg-slate-100">
@@ -502,8 +526,8 @@ class MedPulseApp {
     if (this.articles.length === 0) {
       const isEditor = this.canEditArticles();
       grid.innerHTML = `
-        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
+        <div class="col-span-full py-16 px-6 text-center bg-white rounded-md border border-dashed border-slate-300">
+          <div class="w-14 h-14 rounded-md bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="book-plus" class="w-7 h-7"></i>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900">No Healthcare Basics articles published yet</h3>
@@ -562,8 +586,8 @@ class MedPulseApp {
     if (this.nursingArticles.length === 0) {
       const isEditor = this.canEditArticles();
       grid.innerHTML = `
-        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
+        <div class="col-span-full py-16 px-6 text-center bg-white rounded-md border border-dashed border-slate-300">
+          <div class="w-14 h-14 rounded-md bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="stethoscope" class="w-7 h-7"></i>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900">No nursing articles published yet</h3>
@@ -608,7 +632,7 @@ class MedPulseApp {
       document.getElementById('reader-author-name').textContent = art.author_name;
       document.getElementById('reader-author-title').textContent = art.author_title;
       document.getElementById('reader-summary').textContent = art.summary;
-      document.getElementById('reader-date').textContent = `Published on PANHCE • ${new Date(art.created_at).toLocaleDateString()}`;
+      document.getElementById('reader-date').textContent = `Published on PA-NHCE • ${new Date(art.created_at).toLocaleDateString()}`;
       
       const avatar = document.getElementById('reader-author-avatar');
       if (avatar) avatar.src = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300";
@@ -731,7 +755,7 @@ class MedPulseApp {
 
       if (comments.length === 0) {
         list.innerHTML = `
-          <div class="p-6 text-center bg-slate-50 rounded-2xl border border-slate-200/80 text-slate-500 text-xs">
+          <div class="p-6 text-center bg-slate-50 rounded-md border border-slate-200/80 text-slate-500 text-xs">
             No comments yet. Be the first to ask a medical question or share your experience!
           </div>
         `;
@@ -744,7 +768,7 @@ class MedPulseApp {
                                  c.author_role.toLowerCase().includes('pharmac');
 
         return `
-          <div class="p-4 rounded-2xl ${isVerifiedDoctor ? 'bg-blue-50/50 border border-blue-200' : 'bg-slate-50 border border-slate-200'} space-y-2">
+          <div class="p-4 rounded-md ${isVerifiedDoctor ? 'bg-blue-50/50 border border-blue-200' : 'bg-slate-50 border border-slate-200'} space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 <div class="w-6 h-6 rounded-full ${isVerifiedDoctor ? 'bg-blue-600 text-white' : 'bg-slate-300 text-slate-700'} flex items-center justify-center text-[10px] font-bold">
@@ -1037,8 +1061,8 @@ class MedPulseApp {
     if (this.pharmacyItems.length === 0) {
       const isEditor = this.canEditPharmacy();
       grid.innerHTML = `
-        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-          <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
+        <div class="col-span-full py-16 px-6 text-center bg-white rounded-md border border-dashed border-slate-300">
+          <div class="w-14 h-14 rounded-md bg-blue-50 border border-blue-100 text-blue-600 mx-auto flex items-center justify-center mb-3">
             <i data-lucide="pill" class="w-7 h-7"></i>
           </div>
           <h3 class="text-lg font-extrabold text-slate-900">No medications in pharmacy directory yet</h3>
@@ -1065,7 +1089,7 @@ class MedPulseApp {
       const isRx = item.prescription_required === 1;
 
       return `
-        <div class="medical-card bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between p-5">
+        <div class="medical-card bg-white rounded-md border border-slate-200/90 shadow-sm overflow-hidden flex flex-col justify-between p-5">
           <div>
             <!-- Header Badge & Status -->
             <div class="flex items-center justify-between mb-3">
@@ -1368,7 +1392,7 @@ class MedPulseApp {
     if (!grid) return;
 
     if (ratings.length === 0) {
-      grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 text-xs">No ratings submitted yet. Be the first to rate PANHCE!</div>`;
+      grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 text-xs">No ratings submitted yet. Be the first to rate PA-NHCE!</div>`;
       return;
     }
 
@@ -1379,7 +1403,7 @@ class MedPulseApp {
       }
 
       return `
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
+        <div class="bg-white p-5 rounded-md border border-slate-200 shadow-sm flex flex-col justify-between space-y-3">
           <div>
             <div class="flex items-center justify-between">
               <div class="text-sm font-bold text-slate-900">${stars}</div>
@@ -1420,7 +1444,7 @@ class MedPulseApp {
     document.getElementById('rating-category').value = 'Overall Experience';
     document.getElementById('rating-feedback').value = '';
     document.getElementById('rating-recommend').checked = true;
-    document.getElementById('site-rating-headline').textContent = 'Rate PANHCE Portal';
+    document.getElementById('site-rating-headline').textContent = 'Rate PA-NHCE';
     document.getElementById('site-rating-submit-btn').textContent = 'Submit Review';
 
     document.getElementById('modal-site-rating').classList.remove('hidden');
@@ -1612,8 +1636,8 @@ class MedPulseApp {
       const roleBadge = this.roleBadgeHtml(u.role);
 
       return `
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start space-x-3.5 hover:border-blue-300 transition">
-          <img src="${u.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300'}" alt="${u.name}" class="w-12 h-12 rounded-2xl object-cover border border-slate-200 shadow-sm shrink-0" />
+        <div class="p-4 rounded-md bg-slate-50 border border-slate-200 flex items-start space-x-3.5 hover:border-blue-300 transition">
+          <img src="${u.avatar || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300'}" alt="${u.name}" class="w-12 h-12 rounded-md object-cover border border-slate-200 shadow-sm shrink-0" />
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between gap-1 flex-wrap">
               <h4 class="font-extrabold text-slate-900 text-sm truncate">${u.name}</h4>
